@@ -36,3 +36,16 @@
 *.color15:      #f1efee
 
 URxvt.scrollBar: false
+
+URxvt.perl-ext-common: default,matcher,resize-font
+URxvt.url-launcher: /usr/bin/xdg-open
+URxvt.matcher.button: 1
+URxvt.keysym.C-Delete: perl:matcher:last
+URxvt.keysym.M-Delete: perl:matcher:list
+URxvt.underlineURLs: true
+
+URxvt.keysym.C-Down:  resize-font:smaller
+URxvt.keysym.C-Up:    resize-font:bigger
+
+URxvt*font:xft:DejaVu\ Sans\ Mono:pixelsize=12:antialias=true,xft:DejaVu\ Sans\ Mono\ for\ Powerline:bold:pixelsize=12:antialias=true
+URxvt.letterSpace: -1
