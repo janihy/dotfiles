@@ -1,0 +1,8 @@
+{
+    "linters": {
+        "annotations": {
+            "warnings": ["TODO", "README", "FIXME", "console.log"],
+            "errors": ["WHAT?", "OMG!"]
+        }
+    }
+}

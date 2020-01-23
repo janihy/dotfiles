@@ -1,0 +1,28 @@
+{
+	"bootstrapped": true,
+	"in_process_packages":
+	[
+	],
+	"installed_packages":
+	[
+		"A File Icon",
+		"Alignment",
+		"All Autocomplete",
+		"Anaconda",
+		"BracketHighlighter",
+		"Color Highlighter",
+		"Dotfiles Syntax Highlighting",
+		"FuzzyFilePath",
+		"i3 wm",
+		"LaTeXTools",
+		"Package Control",
+		"Pretty JSON",
+		"Pug",
+		"SideBarEnhancements",
+		"SublimeLinter",
+		"SublimeLinter-annotations",
+		"SublimeLinter-cppcheck",
+		"SublimeLinter-csslint",
+		"Zen Tabs"
+	]
+}
