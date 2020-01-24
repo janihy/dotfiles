@@ -104,3 +104,6 @@ alias ls='ls -alh --color=auto'
 alias mkdir='mkdir -p'
 bindkey '^H' backward-kill-word
 bindkey '5~' kill-word
+
+
+which green >& /dev/null && source "$( green --completion-file )"
