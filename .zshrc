@@ -107,3 +107,5 @@ bindkey '5~' kill-word
 
 
 which green >& /dev/null && source "$( green --completion-file )"
+
+eval "$(direnv hook zsh)"

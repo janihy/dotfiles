@@ -2,3 +2,4 @@
 
 ## prerequisites
 * oh-my-zsh
+* direnv
