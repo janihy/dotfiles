@@ -59,6 +59,7 @@
 
 [core]
   pager = diff-so-fancy | less --tabs=4 -RFX
+  excludesfile = ~/.gitignore
 
 [push]
   default = current
