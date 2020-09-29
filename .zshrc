@@ -72,7 +72,8 @@ export UPDATE_ZSH_DAYS=31
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git gitignore thefuck extract zsh-diff-so-fancy)
+plugins=(git gitignore thefuck extract zsh-diff-so-fancy zsh-autosuggestions gpg-agent pip colored-man-pages colorize)
+export ZSH_AUTOSUGGEST_STRATEGY=(history completion)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -97,15 +98,18 @@ source $ZSH/oh-my-zsh.sh
 # plugins, and themes. Aliases can be placed here, though oh-my-zsh
 # users are encouraged to define aliases within the ZSH_CUSTOM folder.
 # For a full list of active aliases, run `alias`.
-#
-# Example aliases
+
 alias zshconfig="subl ~/.zshrc"
 alias ls='ls -alh --color=auto'
 alias mkdir='mkdir -p'
+
+# ctrl+space to accept autosuggestions
+bindkey '^ ' autosuggest-accept
+
+# use ctrl+arrows to move on the shell
 bindkey '^H' backward-kill-word
 bindkey '5~' kill-word
 
-
-which green >& /dev/null && source "$( green --completion-file )"
-
 eval "$(direnv hook zsh)"
+
+source ~/.zshrc.local
