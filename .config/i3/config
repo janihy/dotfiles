@@ -184,3 +184,5 @@ bar {
 exec vmware-user-suid-wrapper --no-startup-id
 
 bindsym --release Shift+$mod+s exec "maim -s ~/Pictures/screenshots/screenshot_from_$(date +%Y-%m-%d_%H-%M-%S).png"
+
+bindsym Mod1+Tab workspace back_and_forth
