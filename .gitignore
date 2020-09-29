@@ -1,3 +1,7 @@
 .uuid
 *.sublime-workspace
 *.sublime-project
+*.user-ca-bundle
+*.merged-ca-bundle
+*.last-run
+*.cache
