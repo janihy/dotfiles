@@ -99,7 +99,7 @@ source $ZSH/oh-my-zsh.sh
 # users are encouraged to define aliases within the ZSH_CUSTOM folder.
 # For a full list of active aliases, run `alias`.
 
-alias zshconfig="subl ~/.zshrc"
+alias zshconfig="subl -n -w ~/.zshrc"
 alias ls='ls -alh --color=auto'
 alias mkdir='mkdir -p'
 
@@ -107,8 +107,12 @@ alias mkdir='mkdir -p'
 bindkey '^ ' autosuggest-accept
 
 # use ctrl+arrows to move on the shell
+bindkey "^[Od" backward-word
+bindkey "^[Oc" forward-word
+
+# use ctrl+backspace and ctrl+delete to kill words
 bindkey '^H' backward-kill-word
-bindkey '5~' kill-word
+bindkey "\e[3^": kill-word
 
 eval "$(direnv hook zsh)"
 

@@ -40,8 +40,6 @@ URxvt.scrollBar: false
 URxvt.perl-ext-common: default,matcher,resize-font
 URxvt.url-launcher: sensible-browser
 URxvt.matcher.button: 3
-URxvt.keysym.C-Delete: perl:matcher:last
-URxvt.keysym.M-Delete: perl:matcher:list
 URxvt.underlineURLs: true
 
 URxvt.keysym.C-Down:  resize-font:smaller
@@ -52,4 +50,15 @@ URxvt.letterSpace: -1
 URxvt.keysym.Shift-Control-V: eval:paste_clipboard
 URxvt.keysym.Shift-Control-C: eval:selection_to_clipboard
 
+! disable urxvt iso14755 mode as it overlaps with my shift+ctrl+ hotkeys
+URxvt.iso14755: false
+URxvt.iso14755_52: false
+
 Xcursor.size: 12
+
+! stop mouse scroll when paging stuff
+URxvt.secondaryScreen: true
+URxvt.secondaryScroll: false
+
+! set chars marking word boundary
+URxvt*cutchars: "\\`\"'&()*,;<=>?@[]^{|}#%+!:"
