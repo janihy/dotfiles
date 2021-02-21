@@ -13,6 +13,7 @@
 		"Color Highlighter",
 		"Dotfiles Syntax Highlighting",
 		"FuzzyFilePath",
+		"GitGutter",
 		"i3 wm",
 		"LaTeXTools",
 		"Package Control",
@@ -23,6 +24,7 @@
 		"SublimeLinter-annotations",
 		"SublimeLinter-cppcheck",
 		"SublimeLinter-csslint",
+		"SublimeLinter-flake8",
 		"Zen Tabs"
 	]
 }
