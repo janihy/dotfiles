@@ -1,0 +1,4 @@
+[
+    { "keys": ["super+u"], "command": "expand_region" },
+
+]
