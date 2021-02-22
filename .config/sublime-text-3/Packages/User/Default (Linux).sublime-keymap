@@ -1,4 +1,4 @@
 [
     { "keys": ["super+u"], "command": "expand_region" },
-
+    { "keys": ["ctrl+q"], "command": "close_window" },
 ]
