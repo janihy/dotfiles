@@ -62,3 +62,6 @@ URxvt.secondaryScroll: false
 
 ! set chars marking word boundary
 URxvt*cutchars: "\\`\"'&()*,;<=>?@[]^{|}#%+!:"
+
+URxvt.transparent:   true
+URxvt.shading:       10
