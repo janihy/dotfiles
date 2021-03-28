@@ -1,7 +1,7 @@
 ! special
-*.foreground:   #a8a19f
+*.foreground:   #b9b3b2
 *.background:   #1b1918
-*.cursorColor:  #a8a19f
+*.cursorColor:  #b9b3b2
 
 ! black
 *.color0:       #1b1918
@@ -32,7 +32,7 @@
 *.color14:      #00ad9c
 
 ! white
-*.color7:       #a8a19f
+*.color7:       #b9b3b2
 *.color15:      #f1efee
 
 URxvt.scrollBar: false
@@ -65,3 +65,7 @@ URxvt*cutchars: "\\`\"'&()*,;<=>?@[]^{|}#%+!:"
 
 URxvt.transparent:   true
 URxvt.shading:       10
+
+! match spotify uris
+URxvt.matcher.pattern.1: (spotify:[a-z]+:[a-zA-Z0-9]+)
+URxvt.matcher.launcher.1: dbus-send --type=method_call --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.OpenUri string:$1

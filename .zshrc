@@ -117,3 +117,5 @@ bindkey "\e[3^": kill-word
 eval "$(direnv hook zsh)"
 
 source ~/.zshrc.local
+
+export RIPGREP_CONFIG_PATH=$HOME/dotfiles/.ripgreprc

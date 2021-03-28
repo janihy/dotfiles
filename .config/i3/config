@@ -20,6 +20,11 @@ bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume @DEFAULT
 bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute @DEFAULT_SINK@ toggle && $refresh_i3status
 bindsym XF86AudioMicMute exec --no-startup-id pactl set-source-mute @DEFAULT_SOURCE@ toggle && $refresh_i3status
 
+# Media player controls
+bindsym XF86AudioPlay exec playerctl play-pause
+bindsym XF86AudioNext exec playerctl next
+bindsym XF86AudioPrev exec playerctl previous
+
 # Use Mouse+$mod to drag floating windows to their wanted position
 floating_modifier $mod
 
@@ -144,8 +149,6 @@ bar {
     strip_workspace_numbers yes
 }
 
-exec --no-startup-id vmware-user-suid-wrapper
-
 bindsym --release Shift+$mod+s exec "maim -s ~/Pictures/screenshots/screenshot_from_$(date +%Y-%m-%d_%H-%M-%S).png"
 
 
@@ -205,4 +208,23 @@ gaps outer -4
 
 font pango:DejaVu Sans Mono 8
 
-exec --no-startup-id exec bash $HOME/.fehbg
+exec_always --no-startup-id exec bash $HOME/dotfiles/.fehbg
+
+exec --no-startup-id picom -b
+
+
+set $mode_power power
+bindsym Mod1+Control+l mode "$mode_power"
+mode "$mode_power" {
+    bindsym l mode "default", exec --no-startup-id $HOME/.config/i3/i3exit lock
+    bindsym e mode "default", exec --no-startup-id $HOME/.config/i3/i3exit logout
+    bindsym s mode "default", exec --no-startup-id $HOME/.config/i3/i3exit suspend
+    bindsym h mode "default", exec --no-startup-id $HOME/.config/i3/i3exit hibernate
+    bindsym r mode "default", exec --no-startup-id $HOME/.config/i3/i3exit reboot
+    bindsym p mode "default", exec --no-startup-id $HOME/.config/i3/i3exit shutdown
+
+    bindsym Return mode "default"
+    bindsym Escape mode "default"
+}
+
+exec --no-startup-id /usr/lib/x86_64-linux-gnu/polkit-mate/polkit-mate-authentication-agent-1

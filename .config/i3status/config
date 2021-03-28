@@ -6,18 +6,19 @@ general {
     color_bad       = '#e89393'
 }
 
-order += "run_watch splunk"
-#order += "volume master"
+#order += "run_watch splunk"
+order += "volume master"
 order += "disk /"
-#order += "disk /home"
+order += "disk /home"
 order += "run_watch DHCP"
-order += "ipv6"
+#order += "ipv6"
 #order += "run_watch VPN"
 #order += "wireless wlp4s0"
-order += "ethernet ens33"
+order += "ethernet enxd481d733c2ce"
+order += "memory"
 order += "battery 0"
-#order += "cpu_temperature 0"
-order += "cpu_usage 0"
+order += "cpu_temperature 0"
+#order += "cpu_usage 0"
 order += "load"
 order += "tztime local"
 
@@ -26,10 +27,10 @@ wireless wlp4s0 {
     format_down = ""
 }
 
-ethernet ens33 {
+ethernet enxd481d733c2ce {
     #if you use %speed, i3status requires root privileges
     format_up = "%ip"
-    format_down = ""
+    format_down = "No interwebs"
 }
 
 battery 0 {
@@ -40,10 +41,10 @@ battery 0 {
     low_threshold = 11
     threshold_type = percentage
     hide_seconds = true
-    status_chr = " "
-    status_bat = " "
-    status_unk = " "
-    status_full = " "
+    status_chr = ""
+    status_bat = ""
+    status_unk = ""
+    status_full = ""
 }
 
 run_watch DHCP {
@@ -74,18 +75,27 @@ cpu_usage {
 
 cpu_temperature 0 {
         format = " %degrees°C"
+        path = "/sys/devices/platform/coretemp.0/hwmon/hwmon8/temp1_input"
 }
 
 disk "/" {
-    format = " %avail avail"
+    format = " /: %percentage_used (%avail avail)"
+    prefix_type = custom
+    low_threshold = 20
+    threshold_type = percentage_avail
+    separator = false
+}
+
+disk "/home" {
+    format = "/home: %percentage_used (%avail avail)"
     prefix_type = custom
     low_threshold = 20
     threshold_type = percentage_avail
 }
 
 volume master {
-    format = "%volume  "
-    format_muted = " "
+    format = " %volume"
+    format_muted = " 0%"
     device = "default"
     mixer = "Master"
     mixer_idx = 0
@@ -94,4 +104,10 @@ volume master {
 run_watch splunk {
     pidfile = "/opt/splunk/var/run/splunk/splunkd.pid"
     format = "%title"
+}
+
+memory {
+        format = " %used"
+        threshold_degraded = "10%"
+        format_degraded = "MEMORY: %free"
 }
