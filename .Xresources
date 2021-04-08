@@ -45,7 +45,7 @@ URxvt.underlineURLs: true
 URxvt.keysym.C-Down:  resize-font:smaller
 URxvt.keysym.C-Up:    resize-font:bigger
 
-URxvt*font:xft:DejaVu\ Sans\ Mono:pixelsize=12:antialias=true,xft:DejaVu\ Sans\ Mono\ for\ Powerline:bold:pixelsize=12:antialias=true
+URxvt*font:xft:DejaVu\ Sans\ Mono:pixelsize=12:antialias=true:hinting=true, xft:DejaVu\ Sans\ Mono\ for\ Powerline:bold:pixelsize=12:antialias=true, xft:Symbola
 URxvt.letterSpace: -1
 URxvt.keysym.Shift-Control-V: eval:paste_clipboard
 URxvt.keysym.Shift-Control-C: eval:selection_to_clipboard
