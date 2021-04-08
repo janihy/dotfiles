@@ -31,4 +31,16 @@ $ sudo apt install logiops
 
 
 # policykit support
+```
 apt install mate-polkit
+```
+
+
+# lightdm
+```
+$ ln -s ~/.config/autorandr /etc/xdg/
+$ grep display-setup-script /etc/lightdm/lightdm.conf
+# display-setup-script = Script to run when starting a greeter session (runs as root)
+display-setup-script=autorandr --change
+$
+```
