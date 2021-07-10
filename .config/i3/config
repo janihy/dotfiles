@@ -160,6 +160,7 @@ bindsym --release Shift+$mod+s exec "flameshot gui"
 
 
 for_window [class="Sublime_merge"] floating enable
+for_window [class="Spotify"] move to workspace 2
 
 
 exec --no-startup-id ~/.config/i3/column-layout
@@ -201,11 +202,9 @@ client.background       $background
 
 ### i3-gaps and ui stuff ###
 
-# no titlebars for tiled windows
+# no titlebars for tiled or floating windows
 default_border pixel 1
-# but yes titlebars for floating
-default_floating_border normal 1
-for_window [floating] border normal 1
+default_floating_border pixel 1
 
 smart_gaps on
 smart_borders on
@@ -213,12 +212,9 @@ smart_borders on
 gaps inner 10
 gaps outer -4
 
-font pango:DejaVu Sans Mono 8
-
 exec_always --no-startup-id exec bash $HOME/dotfiles/.fehbg
 
 exec --no-startup-id picom -b
-
 
 set $mode_power power
 bindsym Mod1+Control+l mode "$mode_power"

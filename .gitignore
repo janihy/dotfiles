@@ -8,3 +8,4 @@
 *.sublime_license
 .config/sublime-text-3/Cache/
 .config/sublime-text-3/Local
+__pycache__

@@ -100,7 +100,7 @@ source $ZSH/oh-my-zsh.sh
 # For a full list of active aliases, run `alias`.
 
 alias zshconfig="subl -n -w ~/.zshrc"
-alias ls='ls -alh --color=auto'
+alias ls='ls -alh --color=auto --hyperlink=auto'
 alias mkdir='mkdir -p'
 
 # ctrl+space to accept autosuggestions

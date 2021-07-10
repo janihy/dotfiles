@@ -10,7 +10,7 @@
 		"All Autocomplete",
 		"Anaconda",
 		"BracketHighlighter",
-		"Color Highlighter",
+		"Color Highlight",
 		"Dotfiles Syntax Highlighting",
 		"ExpandRegion",
 		"FuzzyFilePath",
@@ -28,6 +28,6 @@
 		"SublimeLinter-csslint",
 		"SublimeLinter-flake8",
 		"Theme - Gravity",
-		"Zen Tabs"
-	]
+		"Zen Tabs",
+	],
 }
