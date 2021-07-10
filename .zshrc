@@ -13,18 +13,9 @@ if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]
   source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
 fi
 
-# Set name of the theme to load --- if set to "random", it will
-# load a random theme each time oh-my-zsh is loaded, in which case,
-# to know which specific one was loaded, run: echo $RANDOM_THEME
 # See https://github.com/robbyrussell/oh-my-zsh/wiki/Themes
 
 ZSH_THEME="powerlevel10k/powerlevel10k"
-
-POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(dir_writable context dir vcs)
-POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=(status root_indicator background_jobs time)
-
-DEFAULT_USER=$USER
-POWERLEVEL9K_ALWAYS_SHOW_CONTEXT="true"
 
 # Uncomment the following line to use case-sensitive completion.
 CASE_SENSITIVE="true"
@@ -73,7 +64,7 @@ export UPDATE_ZSH_DAYS=31
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
 plugins=(git gitignore thefuck extract zsh-diff-so-fancy zsh-autosuggestions gpg-agent pip colored-man-pages colorize)
-export ZSH_AUTOSUGGEST_STRATEGY=(history completion)
+export ZSH_AUTOSUGGEST_STRATEGY=(history)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -85,11 +76,11 @@ source $ZSH/oh-my-zsh.sh
 # export LANG=en_US.UTF-8
 
 # Preferred editor for local and remote sessions
-# if [[ -n $SSH_CONNECTION ]]; then
-#   export EDITOR='vim'
-# else
-#   export EDITOR='mvim'
-# fi
+if [[ -n $SSH_CONNECTION ]]; then
+  export EDITOR='vim'
+else
+  export EDITOR='subl -n -w'
+fi
 
 # Compilation flags
 # export ARCHFLAGS="-arch x86_64"
@@ -119,3 +110,6 @@ eval "$(direnv hook zsh)"
 source ~/.zshrc.local
 
 export RIPGREP_CONFIG_PATH=$HOME/dotfiles/.ripgreprc
+
+# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
+[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
