@@ -16,6 +16,8 @@ pip3 install thefuck
 sudo npm install -g diff-so-fancy
 
 rmmod pcspkr ; echo "blacklist pcspkr" >>/etc/modprobe.d/blacklist.conf
+
+# install rofi-calc: https://github.com/svenstaro/rofi-calc
 ```
 
 

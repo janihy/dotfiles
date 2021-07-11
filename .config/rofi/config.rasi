@@ -1,5 +1,6 @@
 configuration {
-  modi: "window,drun,ssh,combi";
-  theme: "android_notification";
-  combi-modi: "window,drun,ssh";
+  modi: "window,drun,combi,calc";
+  theme: "rofi_theme";
+  combi-modi: "window,drun";
+  font: "MesloLGS NF 11";
 }
