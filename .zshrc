@@ -90,9 +90,10 @@ fi
 # users are encouraged to define aliases within the ZSH_CUSTOM folder.
 # For a full list of active aliases, run `alias`.
 
-alias zshconfig="subl -n -w ~/.zshrc"
 alias ls='ls -alh --color=auto --hyperlink=auto'
-alias mkdir='mkdir -p'
+alias mkdir='mkdir -pv'
+alias cp='cp -iv'
+alias mv='mv -iv'
 
 # ctrl+space to accept autosuggestions
 bindkey '^ ' autosuggest-accept
