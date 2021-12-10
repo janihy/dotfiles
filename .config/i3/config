@@ -73,6 +73,8 @@ bindsym $mod+f fullscreen toggle
 # toggle between tabs and split
 bindsym $mod+o layout toggle tabbed split
 
+bindsym $mod+a focus parent
+
 # toggle horizontal and vertical
 bindsym $mod+e layout toggle split
 
@@ -156,6 +158,8 @@ bindsym --release Shift+$mod+s exec "flameshot gui"
 
 
 for_window [class="Sublime_merge"] floating enable
+for_window [class="Blueman-manager"] floating enable
+for_window [class="Pavucontrol"] floating enable
 for_window [class="Spotify"] move to workspace 2
 
 
@@ -232,3 +236,5 @@ mode "$mode_power" {
 exec --no-startup-id /usr/lib/x86_64-linux-gnu/polkit-mate/polkit-mate-authentication-agent-1
 exec --no-startup-id autorandr --change
 exec --no-startup-id nm-applet
+
+# exec_always --no-startup-id $HOME/.config/polybar/launch.sh
