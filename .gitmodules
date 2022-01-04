@@ -1,9 +1,9 @@
 [submodule ".oh-my-zsh/custom/themes/powerlevel10k"]
 	path = .oh-my-zsh/custom/themes/powerlevel10k
-	url = https://github.com/romkatv/powerlevel10k.git
+	url = git@github.com:romkatv/powerlevel10k.git
 [submodule ".oh-my-zsh/custom/plugins/zsh-diff-so-fancy"]
 	path = .oh-my-zsh/custom/plugins/zsh-diff-so-fancy
-	url = https://github.com/zdharma/zsh-diff-so-fancy.git
+	url = git@github.com:zdharma-continuum/zsh-diff-so-fancy.git
 [submodule ".oh-my-zsh/custom/plugins/zsh-autosuggestions"]
 	path = .oh-my-zsh/custom/plugins/zsh-autosuggestions
 	url = git@github.com:zsh-users/zsh-autosuggestions.git

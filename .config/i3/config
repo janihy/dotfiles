@@ -2,44 +2,18 @@
 #
 # Please see https://i3wm.org/docs/userguide.html for a complete reference!
 
+################################################################################
+# window management & i3 configuration #
+################################################################################
+
 # super key as the modifier
 set $mod Mod4
 
-# xss-lock grabs a logind suspend inhibit lock and will use i3lock to lock the
-# screen before suspend. Use loginctl lock-session to lock your screen.
-exec --no-startup-id xss-lock --transfer-sleep-lock -- i3lock --nofork
-
-# NetworkManager is the most popular way to manage wireless networks on Linux,
-# and nm-applet is a desktop environment-independent system tray GUI for it.
-exec --no-startup-id nm-applet
-
-# Use pactl to adjust volume in PulseAudio.
-set $refresh_i3status killall -SIGUSR1 i3status
-bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ +10% && $refresh_i3status
-bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ -10% && $refresh_i3status
-bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute @DEFAULT_SINK@ toggle && $refresh_i3status
-bindsym XF86AudioMicMute exec --no-startup-id pactl set-source-mute @DEFAULT_SOURCE@ toggle && $refresh_i3status
-
-# Sreen brightness controls
-bindsym XF86MonBrightnessUp exec xbacklight -inc 20 # increase screen brightness
-bindsym XF86MonBrightnessDown exec xbacklight -dec 20 # decrease screen brightness
-
-# Media player controls
-bindsym XF86AudioPlay exec playerctl play-pause
-bindsym XF86AudioNext exec playerctl next
-bindsym XF86AudioPrev exec playerctl previous
-
-# Use Mouse+$mod to drag floating windows to their wanted position
+# use mouse+$mod to drag floating windows to their wanted position
 floating_modifier $mod
-
-# start a terminal
-bindsym $mod+Return exec ~/.local/bin/kitty
 
 # kill focused window
 bindsym $mod+Shift+q kill
-
-# open modi drun as the launcher
-bindsym $mod+d exec --no-startup-id rofi -modi drun#run -show drun
 
 # change focus and move with jklö
 bindsym $mod+j focus left
@@ -61,10 +35,8 @@ bindsym $mod+Shift+Down move down
 bindsym $mod+Shift+Up move up
 bindsym $mod+Shift+Right move right
 
-# split in horizontal orientation
+# split in horizontal or vertical orientation
 bindsym $mod+h split h
-
-# split in vertical orientation
 bindsym $mod+v split v
 
 # enter fullscreen mode for the focused container
@@ -73,16 +45,17 @@ bindsym $mod+f fullscreen toggle
 # toggle between tabs and split
 bindsym $mod+o layout toggle tabbed split
 
+# focus parent window
 bindsym $mod+a focus parent
 
-# toggle horizontal and vertical
+# toggle horizontal and vertical split for the focused container
 bindsym $mod+e layout toggle split
 
-# toggle tiling / floating
+# toggle tiling / floating for current container
 bindsym $mod+Shift+space floating toggle
 
-# change focus between tiling / floating windows
-bindsym $mod+space focus mode_toggle
+# thanks https://aduros.com/blog/hacking-i3-window-promoting/
+bindsym $mod+p exec --no-startup-id ~/.config/i3/promote-window
 
 # names for the workspaces, assign them to variables for future use
 set $ws1 "1"
@@ -120,6 +93,10 @@ bindsym $mod+Shift+8 move container to workspace $ws8
 bindsym $mod+Shift+9 move container to workspace $ws9
 bindsym $mod+Shift+0 move container to workspace $ws10
 
+# move a whole workspace to another monitor
+bindsym $mod+Shift+Control+Left move workspace to output left
+bindsym $mod+Shift+Control+Right move workspace to output right
+
 # "alt-tab" from workspace to another
 bindsym Mod1+Tab workspace back_and_forth
 
@@ -127,6 +104,7 @@ bindsym Mod1+Tab workspace back_and_forth
 bindsym $mod+Shift+r restart
 
 # resize window (you can also use the mouse for that)
+bindsym $mod+r mode "resize"
 mode "resize" {
         bindsym j resize shrink width 10 px or 10 ppt
         bindsym k resize grow height 10 px or 10 ppt
@@ -137,44 +115,13 @@ mode "resize" {
         bindsym Up resize shrink height 10 px or 10 ppt
         bindsym Right resize grow width 10 px or 10 ppt
 
-        # back to normal: Enter or Escape or $mod+r
+        # back to normal: Enter, Escape or $mod+r
         bindsym Return mode "default"
         bindsym Escape mode "default"
         bindsym $mod+r mode "default"
 }
 
-bindsym $mod+r mode "resize"
-
-bar {
-    tray_output primary
-    status_command i3status
-    font pango:DejaVu Sans Mono 9
-    strip_workspace_numbers yes
-}
-
-# bindsym --release Shift+$mod+s exec "maim -s ~/Pictures/screenshots/screenshot_from_$(date +%Y-%m-%d_%H-%M-%S).png"
-# bindsym --release Shift+$mod+s exec "maim -s -l -c 1,1,1,0.1 | xclip -selection clipboard -t image/png"
-bindsym --release Shift+$mod+s exec "flameshot gui"
-
-
-for_window [class="Sublime_merge"] floating enable
-for_window [class="Blueman-manager"] floating enable
-for_window [class="Pavucontrol"] floating enable
-for_window [class="Spotify"] move to workspace 2
-
-
-exec --no-startup-id ~/.config/i3/column-layout
-bindsym $mod+p exec --no-startup-id ~/.config/i3/promote-window
-bindsym $mod+w exec --no-startup-id rofi -modi window -show window
-
-# For quick maths
-#bindsym $mod+m exec --no-startup-id urxvt -title "Calculator" -geometry 50x18 -e /usr/bin/node
-#for_window [title="^Calculator$"] floating enable
-
-# needs https://github.com/svenstaro/rofi-calc
-bindsym $mod+m exec --no-startup-id rofi -show calc
-
-# grab colors from ~/.Xresources
+# grab colors from ~/.Xresources - not actually sure if these are in use anywhere
 set_from_resource   $background background
 set_from_resource   $foreground foreground
 set_from_resource   $color0     color0
@@ -203,8 +150,6 @@ client.placeholder      $foreground $color0 $foreground $background $color7
 
 client.background       $background
 
-### i3-gaps and ui stuff ###
-
 # no titlebars for tiled or floating windows
 default_border pixel 1
 default_floating_border pixel 1
@@ -215,17 +160,9 @@ smart_borders on
 gaps inner 10
 gaps outer -4
 
-exec_always --no-startup-id exec bash $HOME/dotfiles/.fehbg
-
-exec --no-startup-id picom -b
-
-set $mode_power power
-bindsym Mod1+Control+l mode "$mode_power"
-mode "$mode_power" {
+bindsym Mod1+Control+l mode "power"
+mode "power" {
     bindsym l mode "default", exec --no-startup-id $HOME/.config/i3/i3exit lock
-    bindsym e mode "default", exec --no-startup-id $HOME/.config/i3/i3exit logout
-    bindsym s mode "default", exec --no-startup-id $HOME/.config/i3/i3exit suspend
-    bindsym h mode "default", exec --no-startup-id $HOME/.config/i3/i3exit hibernate
     bindsym r mode "default", exec --no-startup-id $HOME/.config/i3/i3exit reboot
     bindsym p mode "default", exec --no-startup-id $HOME/.config/i3/i3exit shutdown
 
@@ -233,8 +170,65 @@ mode "$mode_power" {
     bindsym Escape mode "default"
 }
 
+################################################################################
+# i3 window & workspace props #
+################################################################################
+
+for_window [class="Sublime_merge"] floating enable
+for_window [class="Blueman-manager"] floating enable
+for_window [class="Pavucontrol"] floating enable
+for_window [class="Spotify"] move to workspace 2
+
+# include here env-specific stuff
+
+################################################################################
+# other keybindings etc #
+################################################################################
+
+# Use pactl to adjust volume in PulseAudio.
+bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ +10%
+bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ -10%
+bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute @DEFAULT_SINK@ toggle
+
+# screen brightness controls
+bindsym XF86MonBrightnessUp exec xbacklight -inc 20
+bindsym XF86MonBrightnessDown exec xbacklight -dec 20
+
+# media player controls
+bindsym XF86AudioPlay exec --no-startup-id playerctl play-pause
+bindsym XF86AudioNext exec --no-startup-id playerctl next
+bindsym XF86AudioPrev exec --no-startup-id playerctl previous
+
+################################################################################
+# shortcuts for apps #
+################################################################################
+
+# open modi drun as the launcher
+bindsym $mod+d exec --no-startup-id rofi -modi drun#run -show drun
+# only show open windows on $mod+w
+bindsym $mod+w exec --no-startup-id rofi -modi window -show window
+
+# start a terminal
+bindsym $mod+Return exec ~/.local/bin/kitty
+
+# needs https://github.com/svenstaro/rofi-calc
+bindsym $mod+m exec --no-startup-id rofi -show calc
+
+# fancy screenshotting
+bindsym --release Shift+$mod+s exec "flameshot gui"
+
+################################################################################
+# autostart #
+################################################################################
+
+exec --no-startup-id picom -b
 exec --no-startup-id /usr/lib/x86_64-linux-gnu/polkit-mate/polkit-mate-authentication-agent-1
 exec --no-startup-id autorandr --change
 exec --no-startup-id nm-applet
 
-# exec_always --no-startup-id $HOME/.config/polybar/launch.sh
+# don't always split in the same direction
+# thanks https://aduros.com/blog/hacking-i3-automatic-layout/
+exec_always --no-startup-id ~/.config/i3/column-layout
+
+exec_always --no-startup-id $HOME/dotfiles/.fehbg
+exec_always --no-startup-id $HOME/.config/polybar/launch.sh
