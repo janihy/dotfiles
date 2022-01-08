@@ -2,11 +2,9 @@
 ; https://github.com/polybar/polybar/wiki/Configuration
 
 [colors]
-;background = ${xrdb:color0:#222}
-background = #222
+background = ${xrdb:color0}
 background-alt = #444
-;foreground = ${xrdb:color7:#222}
-foreground = #dfdfdf
+foreground = ${xrdb:color7}
 foreground-alt = #555
 primary = #ffb52a
 secondary = #e60053
@@ -22,25 +20,26 @@ background = ${colors.background}
 foreground = ${colors.foreground}
 
 line-size = 3
-line-color = #f00
-
-padding-left = 0
-padding-right = 1
-
 module-margin-left = 0
 module-margin-right = 1
 
 font-0 = "DejaVu Sans Mono:size=9;0"
-font-1 = "Noto Color Emoji:scale=12;0"
-font-2 = "FontAwesome:style=Regular;0"
+font-1 = "Font Awesome 5 Pro:style=Regular:size=10;0"
+font-2 = "Font Awesome 5 Brands:style=Regular:size=10;0"
+font-3 = "Font Awesome 5 Duotone:style=Solid:size=10;0"
+font-4 = "Noto Color Emoji:scale=12;0"
+
+; automatic dpi
 dpi = 0
+
+separator = |
+separator-padding = 1
 
 
 [bar/main]
 inherit = section/base
 modules-left = i3
-modules-center = spotify
-modules-right = pulseaudio filesystem xbacklight memory cpu wlan eth battery temperature date
+modules-right = spotify pulseaudio filesystem xbacklight memory load-average wlan eth battery temperature date
 tray-position = right
 
 
@@ -115,18 +114,11 @@ bar-empty-font = 2
 bar-empty-foreground = ${colors.foreground-alt}
 
 
-[module/cpu]
-type = internal/cpu
-interval = 2
-format-prefix = " "
-format-prefix-foreground = ${colors.foreground-alt}
-label = %percentage:2%%
-
-
 [module/memory]
 type = internal/memory
 interval = 2
-format = RAM<bar-used>
+format-prefix = " "
+format = <bar-used>
 bar-used-indicator =
 bar-used-width = 15
 bar-used-foreground-0 = #55aa55
@@ -135,58 +127,52 @@ bar-used-foreground-2 = #f5a70a
 bar-used-foreground-3 = #ff5555
 bar-used-fill = ▐
 bar-used-empty = ▐
-bar-used-empty-foreground = #444444
+bar-used-empty-foreground = ${colors.background-alt}
+
+
+[section/network]
+format-disconnected-prefix = ${self.format-connected-prefix}
+format-disconnected-foreground = ${colors.foreground-alt}
+label-disconnected = %ifname%
 
 
 [module/wlan]
+inherit = section/network
 type = internal/network
 interface = wlp2s0
 interval = 3.0
 
+label-connected = "%essid% %local_ip%"
 format-connected = <ramp-signal> <label-connected>
-label-connected = %essid% %local_ip%
-
-format-disconnected =
-;format-disconnected = <label-disconnected>
-;format-disconnected-underline = ${self.format-connected-underline}
-;label-disconnected = %ifname% disconnected
-;label-disconnected-foreground = ${colors.foreground-alt}
-
-ramp-signal-0 = 
-ramp-signal-1 = 
-ramp-signal-2 = 
-ramp-signal-3 = 
-ramp-signal-4 = 
-ramp-signal-foreground = ${colors.foreground-alt}
+format-connected-foreground = #fff
+ramp-signal-0 = 😱
+ramp-signal-1 = 
+ramp-signal-2 = 
+format-disconnected-prefix = " "
 
 
 [module/eth]
+inherit = section/network
 type = internal/network
 interface = enxd481d733c2ce
 interval = 3.0
 
-format-connected-underline = #55aa55
-format-connected-prefix = " "
-format-connected-prefix-foreground = ${colors.foreground-alt}
+format-connected-prefix = " "
+; todo: downspeed and upspeed without moving around other elements
 label-connected = %local_ip%
-
-format-disconnected =
-;format-disconnected = <label-disconnected>
-;format-disconnected-underline = ${self.format-connected-underline}
-;label-disconnected = %ifname% disconnected
-;label-disconnected-foreground = ${colors.foreground-alt}
 
 
 [module/date]
 type = internal/date
 interval = 1
+format-prefix = " "
 
 ; see https://en.cppreference.com/w/cpp/io/manip/put_time for formatting
 ; -alt is for toggling with left mouse button
 date = %a %Y-%m-%d
-date-alt = week %W
+date-alt = week %V
 time = %H:%M:%S
-time-alt = %H:%M:%S
+time-alt = %H:%M:%S %z
 
 label = %date% %time%
 
@@ -209,20 +195,21 @@ format-volume = <ramp-volume> <label-volume>
 ; Available tokens:
 ;   %percentage% (default)
 ;   %decibels%
-;label-volume = %percentage%%
+label-volume = %percentage%%
+ramp-volume-0 = 
+ramp-volume-1 = 
+ramp-volume-2 = 
+ramp-volume-3 = 
+
 
 ; Available tokens:
 ;   %percentage% (default)
 ;   %decibels%
-label-muted = 🔇 muted
+label-muted = " muted"
 label-muted-foreground = #666
 
-; Only applies if <ramp-volume> is used
-ramp-volume-0 = 🔈
-ramp-volume-1 = 🔉
-ramp-volume-2 = 🔊
-
 ; right click to open pavucontrol
+; left-click to toggle mute (builtin)
 click-right = pavucontrol
 use-ui-max = false
 
@@ -236,29 +223,23 @@ full-at = 98
 format-charging = <animation-charging> <label-charging>
 format-charging-underline = #ffb52a
 
-format-discharging = <animation-discharging> <label-discharging>
-format-discharging-underline = ${self.format-charging-underline}
+format-discharging = <ramp-capacity> <label-discharging>
+format-discharging-underline = #ffb52a
 
-format-full-prefix = " "
-format-full-prefix-foreground = ${colors.foreground-alt}
 format-full-underline = #55aa55
+format-full = <ramp-capacity> 100 %
 
-ramp-capacity-0 = 
-ramp-capacity-1 = 
-ramp-capacity-2 = 
-ramp-capacity-foreground = ${colors.foreground-alt}
+ramp-capacity-0 = 
+ramp-capacity-1 = 
+ramp-capacity-2 = 
+ramp-capacity-3 = 
+ramp-capacity-4 = 
 
-animation-charging-0 = 
-animation-charging-1 = 
-animation-charging-2 = 
-animation-charging-foreground = ${colors.foreground-alt}
+animation-charging-0 = 
+animation-charging-1 = 
+animation-charging-2 = 
+animation-charging-3 = 
 animation-charging-framerate = 750
-
-animation-discharging-0 = 
-animation-discharging-1 = 
-animation-discharging-2 = 
-animation-discharging-foreground = ${colors.foreground-alt}
-animation-discharging-framerate = 750
 
 
 [module/temperature]
@@ -266,25 +247,32 @@ type = internal/temperature
 thermal-zone = 1
 warn-temperature = 60
 
-format = <ramp> <label>
+format = <label>
+format-prefix = " "
 format-underline = #55aa55
-format-warn = <ramp> <label-warn>
+format-warn-prefix = " "
+format-warn = <label-warn>
 format-warn-underline = #f50a4d
 
 label = %temperature-c%
 label-warn = %temperature-c%
 label-warn-foreground = ${colors.secondary}
 
-ramp-0 = 
-ramp-1 = 
-ramp-2 = 
-ramp-foreground = ${colors.foreground-alt}
-
 
 [module/spotify]
 type = custom/script
 interval = 1
 format-prefix = " "
+format-prefix-foreground = #1DB954
 format = <label>
+format-underline = #1DB954
 exec = python3 ~/.config/polybar/scripts/spotify_status.py -q -t 35 -f '{artist}: {song}'
 click-left = i3-msg '[class="Spotify"] focus'
+
+
+[module/load-average]
+type = custom/script
+exec = awk '{print $1,$2,$3}' < /proc/loadavg
+label = %output%
+format-prefix = " "
+format = <label>
