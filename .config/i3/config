@@ -177,7 +177,7 @@ mode "power" {
 for_window [class="Sublime_merge"] floating enable
 for_window [class="Blueman-manager"] floating enable
 for_window [class="Pavucontrol"] floating enable
-for_window [class="Spotify"] move to workspace 2
+for_window [class="Spotify"] move to workspace 1
 
 # include here env-specific stuff
 
