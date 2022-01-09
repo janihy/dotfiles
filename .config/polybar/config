@@ -39,7 +39,7 @@ separator-padding = 1
 [bar/main]
 inherit = section/base
 modules-left = i3
-modules-right = spotify pulseaudio filesystem xbacklight memory load-average wlan eth battery temperature date
+modules-right = now-playing pulseaudio filesystem xbacklight memory load-average wlan eth battery temperature date
 tray-position = right
 
 
@@ -276,3 +276,13 @@ exec = awk '{print $1,$2,$3}' < /proc/loadavg
 label = %output%
 format-prefix = " "
 format = <label>
+
+
+[module/now-playing]
+type = custom/script
+interval = 1
+format-prefix = " "
+format-prefix-foreground = #1DB954
+format = <label>
+exec = ~/.config/polybar/scripts/now-playing.sh
+click-left = i3-msg '[class="Spotify"] focus'
