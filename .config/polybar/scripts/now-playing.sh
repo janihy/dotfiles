@@ -15,5 +15,26 @@ get_now_playing_client () {
 
 get_now_playing_client || echo ""
 
-now_playing=$(playerctl --player=$CLIENT metadata title)
-echo $now_playing
+case $CLIENT in
+  spotify)
+    # add spotify focus action to left-click: click-left = i3-msg '[class="Spotify"] focus'
+    now_playing=$(playerctl --player=$CLIENT metadata -f "{{ artist }} - {{ title }}")
+    logo="%{F#1DB954}%{F-}"
+    ;;
+  chrome)
+    now_playing=$(playerctl --player=$CLIENT metadata -f "{{ title }}")
+    url=$(playerctl --player chrome metadata -f "{{ xesam:url }}")
+    case $url in
+        *youtube*)
+            logo="%{F#FF0000}%{F-}"
+        ;;
+        *soundcloud*)
+            logo="%{F#ff8800}%{F-}"
+        ;;
+        *)
+            logo=""
+    esac
+    ;;
+esac
+
+echo $logo $now_playing

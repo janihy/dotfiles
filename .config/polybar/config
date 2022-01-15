@@ -56,7 +56,7 @@ interval = 25
 mount-0 = /
 mount-1 = /home
 
-label-mounted = %{F#0a81f5}%mountpoint%%{F-}: %free% avail
+label-mounted = %{F#0a81f5}%mountpoint%%{F-}: %free% free
 label-unmounted = %mountpoint% not mounted
 label-unmounted-foreground = ${colors.foreground-alt}
 
@@ -118,16 +118,17 @@ bar-empty-foreground = ${colors.foreground-alt}
 type = internal/memory
 interval = 2
 format-prefix = " "
-format = <bar-used>
+format = <bar-used> <label>
 bar-used-indicator =
-bar-used-width = 15
+bar-used-width = 12
 bar-used-foreground-0 = #55aa55
 bar-used-foreground-1 = #557755
 bar-used-foreground-2 = #f5a70a
 bar-used-foreground-3 = #ff5555
 bar-used-fill = ▐
 bar-used-empty = ▐
-bar-used-empty-foreground = ${colors.background-alt}
+bar-used-empty-foreground = ${colors.foreground-alt}
+label = "%gb_free% free"
 
 
 [section/network]
@@ -259,17 +260,6 @@ label-warn = %temperature-c%
 label-warn-foreground = ${colors.secondary}
 
 
-[module/spotify]
-type = custom/script
-interval = 1
-format-prefix = " "
-format-prefix-foreground = #1DB954
-format = <label>
-format-underline = #1DB954
-exec = python3 ~/.config/polybar/scripts/spotify_status.py -q -t 35 -f '{artist}: {song}'
-click-left = i3-msg '[class="Spotify"] focus'
-
-
 [module/load-average]
 type = custom/script
 exec = awk '{print $1,$2,$3}' < /proc/loadavg
@@ -281,8 +271,5 @@ format = <label>
 [module/now-playing]
 type = custom/script
 interval = 1
-format-prefix = " "
-format-prefix-foreground = #1DB954
 format = <label>
 exec = ~/.config/polybar/scripts/now-playing.sh
-click-left = i3-msg '[class="Spotify"] focus'

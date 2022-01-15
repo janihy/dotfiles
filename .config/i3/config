@@ -15,16 +15,6 @@ floating_modifier $mod
 # kill focused window
 bindsym $mod+Shift+q kill
 
-# change focus and move with jklö
-bindsym $mod+j focus left
-bindsym $mod+k focus down
-bindsym $mod+l focus up
-bindsym $mod+odiaeresis focus right
-bindsym $mod+Shift+j move left
-bindsym $mod+Shift+k move down
-bindsym $mod+Shift+l move up
-bindsym $mod+Shift+odiaeresis move right
-
 # or cursors
 bindsym $mod+Left focus left
 bindsym $mod+Down focus down
@@ -106,10 +96,6 @@ bindsym $mod+Shift+r restart
 # resize window (you can also use the mouse for that)
 bindsym $mod+r mode "resize"
 mode "resize" {
-        bindsym j resize shrink width 10 px or 10 ppt
-        bindsym k resize grow height 10 px or 10 ppt
-        bindsym l resize shrink height 10 px or 10 ppt
-        bindsym odiaeresis resize grow width 10 px or 10 ppt
         bindsym Left resize shrink width 10 px or 10 ppt
         bindsym Down resize grow height 10 px or 10 ppt
         bindsym Up resize shrink height 10 px or 10 ppt
@@ -160,15 +146,15 @@ smart_borders on
 gaps inner 10
 gaps outer -4
 
-bindsym Mod1+Control+l mode "power"
-mode "power" {
-    bindsym l mode "default", exec --no-startup-id $HOME/.config/i3/i3exit lock
-    bindsym r mode "default", exec --no-startup-id $HOME/.config/i3/i3exit reboot
-    bindsym p mode "default", exec --no-startup-id $HOME/.config/i3/i3exit shutdown
+#bindsym Mod1+Control+l mode "power"
+#mode "power" {
+#    bindsym l mode "default", exec --no-startup-id $HOME/.config/i3/i3exit lock
+#    bindsym r mode "default", exec --no-startup-id $HOME/.config/i3/i3exit reboot
+#    bindsym p mode "default", exec --no-startup-id $HOME/.config/i3/i3exit shutdown
 
-    bindsym Return mode "default"
-    bindsym Escape mode "default"
-}
+#    bindsym Return mode "default"
+#    bindsym Escape mode "default"
+#}
 
 ################################################################################
 # i3 window & workspace props #
@@ -198,6 +184,9 @@ bindsym XF86MonBrightnessDown exec xbacklight -dec 20
 bindsym XF86AudioPlay exec --no-startup-id playerctl play-pause
 bindsym XF86AudioNext exec --no-startup-id playerctl next
 bindsym XF86AudioPrev exec --no-startup-id playerctl previous
+
+# windows-style super+l locks the screen
+bindsym $mod+l exec --no-startup-id $HOME/.config/i3/i3exit lock
 
 ################################################################################
 # shortcuts for apps #
