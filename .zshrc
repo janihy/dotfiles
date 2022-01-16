@@ -3,8 +3,7 @@ export PATH=$HOME/bin:$HOME/.local/bin:/usr/local/bin:$PATH
 
 # Path to your oh-my-zsh installation.
 export ZSH="/home/jani/.oh-my-zsh"
-
-export TERM=xterm-256color
+export TERM=xterm-kitty
 
 # Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
 # Initialization code that may require console input (password prompts, [y/n]
@@ -63,7 +62,7 @@ export UPDATE_ZSH_DAYS=31
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git gitignore thefuck extract zsh-diff-so-fancy zsh-autosuggestions gpg-agent pip colored-man-pages colorize)
+plugins=(git gitignore thefuck extract zsh-diff-so-fancy zsh-autosuggestions gpg-agent pip colored-man-pages colorize history command-not-found direnv taskwarrior pass ripgrep zsh-syntax-highlighting)
 export ZSH_AUTOSUGGEST_STRATEGY=(history)
 
 source $ZSH/oh-my-zsh.sh
@@ -106,11 +105,10 @@ bindkey "^[Oc" forward-word
 bindkey '^H' backward-kill-word
 bindkey "\e[3^": kill-word
 
-eval "$(direnv hook zsh)"
-
 source ~/.zshrc.local
 
 export RIPGREP_CONFIG_PATH=$HOME/dotfiles/.ripgreprc
+export POWERLEVEL9K_TERM_SHELL_INTEGRATION=true
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
