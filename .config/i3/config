@@ -146,6 +146,8 @@ smart_borders on
 gaps inner 10
 gaps outer -4
 
+font pango:Noto Sans 8
+
 #bindsym Mod1+Control+l mode "power"
 #mode "power" {
 #    bindsym l mode "default", exec --no-startup-id $HOME/.config/i3/i3exit lock
