@@ -163,9 +163,10 @@ gaps outer -4
 for_window [class="Sublime_merge"] floating enable
 for_window [class="Blueman-manager"] floating enable
 for_window [class="Pavucontrol"] floating enable
-for_window [class="Spotify"] move to workspace 1
 
-# include here env-specific stuff
+# include the config applicable for the current monitor setup
+# the include directive requires i3 >= 4.20
+include ~/.config/i3/config.d/`autorandr --current`.conf
 
 ################################################################################
 # other keybindings etc #
