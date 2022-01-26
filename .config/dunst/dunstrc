@@ -94,10 +94,6 @@ mouse_left_click = close_current
 mouse_middle_click = do_action, close_current
 mouse_right_click = close_all
 
-[shortcuts]
-# close notification from anywhere with ctrl+space
-close = ctrl+space
-
 [urgency_low]
 background = "#222222"
 foreground = "#888888"

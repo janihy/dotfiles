@@ -14,3 +14,6 @@ application/x-yaml=sublime_text.desktop
 text/plain=sublime_text.desktop
 text/x-log=sublime_text.desktop
 application/pdf=chromium.desktop
+application/octet-stream=sublime_text.desktop;
+audio/x-xm=mpv.desktop;
+audio/mpeg=mpv.desktop;

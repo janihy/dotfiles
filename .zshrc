@@ -69,11 +69,6 @@ source $ZSH/oh-my-zsh.sh
 
 # User configuration
 
-# export MANPATH="/usr/local/man:$MANPATH"
-
-# You may need to manually set your language environment
-# export LANG=en_US.UTF-8
-
 # Preferred editor for local and remote sessions
 if [[ -n $SSH_CONNECTION ]]; then
   export EDITOR='vim'
@@ -81,21 +76,16 @@ else
   export EDITOR='subl -n -w'
 fi
 
-# Compilation flags
-# export ARCHFLAGS="-arch x86_64"
-
-# Set personal aliases, overriding those provided by oh-my-zsh libs,
-# plugins, and themes. Aliases can be placed here, though oh-my-zsh
-# users are encouraged to define aliases within the ZSH_CUSTOM folder.
-# For a full list of active aliases, run `alias`.
-
 alias ls='ls -alh --color=auto --hyperlink=auto'
 alias mkdir='mkdir -pv'
 alias cp='cp -iv'
 alias mv='mv -iv'
+# ssh doesn't (yet) allow us to override $TERM and xterm-kitty
+# is not an option everywhere
+alias ssh='TERM=xterm-256color ssh'
 
 # ctrl+space to accept autosuggestions
-bindkey '^ ' autosuggest-accept
+bindkey '^@' autosuggest-accept
 
 # use ctrl+arrows to move on the shell
 bindkey "^[Od" backward-word

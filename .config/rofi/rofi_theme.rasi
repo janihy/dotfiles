@@ -18,7 +18,7 @@
     background:                     rgba(56,56,56,70%);
     normal-background:              @background;
     active-background:              @background;
-    urgent-background:              rgba(56,56,56,100%);
+    urgent-background:              rgba(97, 70, 73, 90%);
     selected-active-background:     @selected-normal-background;
     selected-normal-background:     rgba(80,80,80,70%);
     selected-urgent-background:     rgba(80,80,80,100%);
@@ -32,6 +32,7 @@
 }
 #window {
     fullscreen:                     true;
+    background-color:               rgba(0,0,0,20%);
 }
 #mainbox {
     background-color:               @background;
@@ -40,13 +41,21 @@
     padding:                        5;
     margin:                         30%;
 }
+#error-message {
+    background-color:               @urgent-background;
+    border-color:                   @urgent-foreground;
+    border:                         1;
+    padding:                        5;
+    margin:                         50% 30%;
+    expand: false;
+}
 #message {
     border:                         1px dash 0px 0px;
     border-color:                   @separatorcolor;
     padding:                        1px;
 }
 #textbox {
-    text-color:                     @foreground;
+    text-color:                     @active-foreground;
 }
 #listview {
     fixed-height:                   0;
