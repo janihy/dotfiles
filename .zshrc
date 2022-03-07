@@ -100,5 +100,8 @@ source ~/.zshrc.local
 export RIPGREP_CONFIG_PATH=$HOME/dotfiles/.ripgreprc
 export POWERLEVEL9K_TERM_SHELL_INTEGRATION=true
 
+export ZSH_AUTOSUGGEST_BUFFER_MAX_SIZE=20
+
+
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
