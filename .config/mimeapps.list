@@ -17,3 +17,4 @@ application/pdf=chromium.desktop
 application/octet-stream=sublime_text.desktop;
 audio/x-xm=mpv.desktop;
 audio/mpeg=mpv.desktop;
+application/x-ole-storage=sublime_text.desktop;
