@@ -15,15 +15,15 @@ floating_modifier $mod
 # kill focused window
 bindsym $mod+Shift+q kill
 
-# or cursors
+# use $mod+cursors to move around
 bindsym $mod+Left focus left
 bindsym $mod+Down focus down
 bindsym $mod+Up focus up
 bindsym $mod+Right focus right
-bindsym $mod+Shift+Left move left
-bindsym $mod+Shift+Down move down
-bindsym $mod+Shift+Up move up
-bindsym $mod+Shift+Right move right
+bindsym $mod+Shift+Left exec ~/.local/bin/i3l move left
+bindsym $mod+Shift+Down exec ~/.local/bin/i3l move down
+bindsym $mod+Shift+Up exec ~/.local/bin/i3l move up
+bindsym $mod+Shift+Right exec ~/.local/bin/i3l move right
 
 # split in horizontal or vertical orientation
 bindsym $mod+h split h
@@ -46,6 +46,8 @@ bindsym $mod+Shift+space floating toggle
 
 # thanks https://aduros.com/blog/hacking-i3-window-promoting/
 bindsym $mod+p exec --no-startup-id ~/.config/i3/promote-window
+
+bindsym $mod+s exec ~/.local/bin/i3l vstack 0.6 && notify-send 'Layout vstack'
 
 # names for the workspaces, assign them to variables for future use
 set $ws1 "1"
@@ -88,7 +90,9 @@ bindsym $mod+Shift+Control+Left move workspace to output left
 bindsym $mod+Shift+Control+Right move workspace to output right
 
 # "alt-tab" from workspace to another
-bindsym Mod1+Tab workspace back_and_forth
+bindsym $mod+Tab workspace back_and_forth
+# alt-tab from container to another
+bindsym Mod1+Tab [con_mark="i3l::previous"] focus
 
 # restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
 bindsym $mod+Shift+r restart
@@ -200,6 +204,10 @@ bindsym $mod+d exec --no-startup-id rofi -modi drun#run -show drun
 # only show open windows on $mod+w
 bindsym $mod+w exec --no-startup-id rofi -modi window -show window
 
+# emoji picker 🔥
+# needs https://github.com/fdw/rofimoji
+bindsym $mod+period exec --no-startup-id ~/.local/bin/rofimoji
+
 # start a terminal
 bindsym $mod+Return exec ~/.local/bin/kitty
 
@@ -219,8 +227,7 @@ exec --no-startup-id autorandr --change
 exec --no-startup-id nm-applet
 
 # don't always split in the same direction
-# thanks https://aduros.com/blog/hacking-i3-automatic-layout/
-exec_always --no-startup-id ~/.config/i3/column-layout
+exec_always --no-startup-id ~/.local/bin/i3-layouts
 
 exec_always --no-startup-id $HOME/dotfiles/.fehbg
 exec_always --no-startup-id $HOME/.config/polybar/launch.sh
