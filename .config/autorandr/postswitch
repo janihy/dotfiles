@@ -1,3 +1,4 @@
 #!/usr/bin/env bash
 notify-send -i display "Display profile changed" "switched to '$AUTORANDR_CURRENT_PROFILE' t: autorandr"
 ~/dotfiles/.fehbg
+~/dotfiles/polybar/launch.sh
