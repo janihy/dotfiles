@@ -18,3 +18,4 @@ application/octet-stream=sublime_text.desktop;
 audio/x-xm=mpv.desktop;
 audio/mpeg=mpv.desktop;
 application/x-ole-storage=sublime_text.desktop;
+application/x-shellscript=sublime_text.desktop;

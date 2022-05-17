@@ -10,6 +10,9 @@
             "jobs": "1",
             "max-complexity": -1,
             "show-code": false
+        },
+        "yamllint": {
+            "selector": "source.yaml, source.sls"
         }
     },
     "gutter_theme": "ProjectIcons",

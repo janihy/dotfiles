@@ -169,6 +169,7 @@ font pango:Noto Sans 8
 for_window [class="Sublime_merge"] floating enable
 for_window [class="Blueman-manager"] floating enable
 for_window [class="Pavucontrol"] floating enable
+for_window [class="Chromium" window_role="pop-up"] floating enable
 
 # include the config applicable for the current monitor setup
 # the include directive requires i3 >= 4.20

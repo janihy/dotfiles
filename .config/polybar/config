@@ -140,12 +140,11 @@ label-disconnected = %ifname%
 [module/wlan]
 inherit = section/network
 type = internal/network
-interface = wlp2s0
-interval = 3.0
+interface = wlp0s20f3
+interval = 10.0
 
 label-connected = "%essid% %local_ip%"
 format-connected = <ramp-signal> <label-connected>
-format-connected-foreground = #fff
 ramp-signal-0 = 😱
 ramp-signal-1 = 
 ramp-signal-2 = 
@@ -155,8 +154,8 @@ format-disconnected-prefix = " "
 [module/eth]
 inherit = section/network
 type = internal/network
-interface = enxd481d733c2ce
-interval = 3.0
+interface = enxd481d766923e
+interval = 10.0
 
 format-connected-prefix = " "
 ; todo: downspeed and upspeed without moving around other elements
@@ -219,7 +218,7 @@ use-ui-max = false
 type = internal/battery
 battery = BAT0
 adapter = AC
-full-at = 98
+full-at = 96
 
 format-charging = <animation-charging> <label-charging>
 format-charging-underline = #ffb52a
@@ -228,7 +227,7 @@ format-discharging = <ramp-capacity> <label-discharging>
 format-discharging-underline = #ffb52a
 
 format-full-underline = #55aa55
-format-full = <ramp-capacity> 100 %
+format-full = <ramp-capacity> full
 
 ramp-capacity-0 = 
 ramp-capacity-1 = 
@@ -245,15 +244,15 @@ animation-charging-framerate = 750
 
 [module/temperature]
 type = internal/temperature
-thermal-zone = 1
-warn-temperature = 60
+thermal-zone = 7
+warn-temperature = 65
 
 format = <label>
 format-prefix = " "
 format-underline = #55aa55
 format-warn-prefix = " "
 format-warn = <label-warn>
-format-warn-underline = #f50a4d
+format-warn-underline = #ffb52a
 
 label = %temperature-c%
 label-warn = %temperature-c%
