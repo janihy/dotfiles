@@ -32,14 +32,14 @@ font-4 = "Noto Color Emoji:scale=12;0"
 ; automatic dpi
 dpi = 0
 
-separator = |
-separator-padding = 1
+separator = "%{F#0a81f5}|%{F-}"
+separator-padding-right = 1
 
 
 [bar/main]
 inherit = section/base
-modules-left = i3
-modules-right = now-playing pulseaudio filesystem xbacklight memory load-average wlan eth battery temperature date
+modules-left = i3 now-playing
+modules-right = pulseaudio filesystem xbacklight memory load-average wlan eth battery temperature date
 tray-position = right
 
 
@@ -99,8 +99,8 @@ label-urgent-padding = 1
 [module/xbacklight]
 type = internal/xbacklight
 
-format = <label> <bar>
-label = BL
+format = <bar>
+format-prefix = " "
 
 bar-width = 10
 bar-indicator = |

@@ -47,7 +47,7 @@ bindsym $mod+Shift+space floating toggle
 # thanks https://aduros.com/blog/hacking-i3-window-promoting/
 bindsym $mod+p exec --no-startup-id ~/.config/i3/promote-window
 
-bindsym $mod+s exec ~/.local/bin/i3l vstack 0.6 && notify-send 'Layout vstack'
+#bindsym $mod+s exec ~/.local/bin/i3l vstack 0.6 && notify-send 'Layout vstack'
 
 # names for the workspaces, assign them to variables for future use
 set $ws1 "1"
@@ -227,8 +227,11 @@ exec --no-startup-id /usr/lib/x86_64-linux-gnu/polkit-mate/polkit-mate-authentic
 exec --no-startup-id autorandr --change
 exec --no-startup-id nm-applet
 
-# don't always split in the same direction
+# invoke i3l so that we get tags to windows
 exec_always --no-startup-id ~/.local/bin/i3-layouts
+
+# invoke alternating layouts, https://github.com/olemartinorg/i3-alternating-layout
+exec_always --no-startup-id ~/.config/i3/alternating_layouts.py
 
 exec_always --no-startup-id $HOME/dotfiles/.fehbg
 exec_always --no-startup-id $HOME/.config/polybar/launch.sh

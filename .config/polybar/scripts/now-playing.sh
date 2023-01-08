@@ -35,6 +35,10 @@ case $CLIENT in
             logo=""
     esac
     ;;
+  chromium)
+    now_playing=$(playerctl --player=$CLIENT metadata -f "{{ title }}")
+    logo="%{F#FF0000}%{F-}"
+    ;;
 esac
 
 echo $logo $now_playing
