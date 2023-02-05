@@ -5,8 +5,6 @@ x-scheme-handler/https=google-chrome.desktop
 x-scheme-handler/about=google-chrome.desktop
 x-scheme-handler/unknown=google-chrome.desktop
 x-scheme-handler/spotify=spotify-open.desktop
-
-[Added Associations]
 image/jpeg=feh.desktop
 x-scheme-handler/msteams=teams-insiders.desktop
 application/json=sublime_text.desktop
@@ -21,3 +19,8 @@ application/x-ole-storage=sublime_text.desktop;
 application/x-shellscript=sublime_text.desktop;
 application/vnd.tcpdump.pcap=wireshark.desktop;
 application/xml=sublime_text.desktop;
+application/javascript=sublime_text.desktop;
+text/csv=sublime_text.desktop;
+
+[Added Associations]
+image/png=gimp.desktop;
