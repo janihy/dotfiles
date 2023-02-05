@@ -26,3 +26,4 @@ Microsoft/
 teams-insiders/
 .config/gtk-3.0/bookmarks
 QtProject.conf
+.local/share/fonts/

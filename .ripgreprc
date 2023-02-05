@@ -4,3 +4,6 @@
 
 # also search hidden files
 --hidden
+
+# be case insensitive, unless uppercase letters in pattern
+--smart-case
