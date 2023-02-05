@@ -12,16 +12,12 @@ if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]
   source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
 fi
 
-# See https://github.com/robbyrussell/oh-my-zsh/wiki/Themes
-
-ZSH_THEME="powerlevel10k/powerlevel10k"
-
 # Uncomment the following line to use case-sensitive completion.
 CASE_SENSITIVE="true"
 
 # Uncomment the following line to use hyphen-insensitive completion.
 # Case-sensitive completion must be off. _ and - will be interchangeable.
-# HYPHEN_INSENSITIVE="true"
+HYPHEN_INSENSITIVE="true"
 
 # Uncomment the following line to disable bi-weekly auto-update checks.
 # DISABLE_AUTO_UPDATE="true"
@@ -39,7 +35,7 @@ export UPDATE_ZSH_DAYS=31
 # ENABLE_CORRECTION="true"
 
 # Uncomment the following line to display red dots whilst waiting for completion.
-# COMPLETION_WAITING_DOTS="true"
+COMPLETION_WAITING_DOTS="true"
 
 # Uncomment the following line if you want to disable marking untracked files
 # under VCS as dirty. This makes repository status check for large repositories
@@ -62,7 +58,7 @@ export UPDATE_ZSH_DAYS=31
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git gitignore thefuck extract zsh-diff-so-fancy zsh-autosuggestions gpg-agent pip colored-man-pages colorize history command-not-found direnv taskwarrior pass ripgrep zsh-syntax-highlighting)
+plugins=(git gitignore thefuck extract gpg-agent pip colored-man-pages colorize history command-not-found direnv taskwarrior pass ripgrep)
 export ZSH_AUTOSUGGEST_STRATEGY=(history)
 
 source $ZSH/oh-my-zsh.sh
@@ -95,13 +91,20 @@ bindkey "^[Oc" forward-word
 bindkey '^H' backward-kill-word
 bindkey "\e[3^": kill-word
 
-source ~/.zshrc.local
+if [[ -z ~/.zshrc.local ]]; then
+  source ~/.zshrc.local
+fi
 
-export RIPGREP_CONFIG_PATH=$HOME/dotfiles/.ripgreprc
+export RIPGREP_CONFIG_PATH=$HOME/.ripgreprc
 export POWERLEVEL9K_TERM_SHELL_INTEGRATION=true
 
 export ZSH_AUTOSUGGEST_BUFFER_MAX_SIZE=20
 
-
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+
+# source antidote
+source ${ZDOTDIR:-~}/.antidote/antidote.zsh
+
+# initialize plugins statically with ${ZDOTDIR:-~}/.zsh_plugins.txt
+antidote load
