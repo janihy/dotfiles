@@ -1,6 +1,7 @@
 configuration {
   modi: "window,drun,combi,calc";
-  theme: "rofi_theme";
   combi-modi: "window,drun";
   font: "MesloLGS NF 11";
 }
+
+@theme "rofi_theme"
