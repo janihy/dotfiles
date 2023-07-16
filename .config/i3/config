@@ -145,8 +145,8 @@ default_floating_border pixel 1
 smart_gaps on
 smart_borders on
 
-gaps inner 10
-gaps outer -4
+gaps inner 3
+gaps outer 0
 
 font pango:Noto Sans 8
 
@@ -224,7 +224,7 @@ bindsym --release Shift+$mod+s exec "flameshot gui"
 # autostart #
 ################################################################################
 
-exec --no-startup-id picom -b
+#exec --no-startup-id picom -b
 exec --no-startup-id /usr/lib/x86_64-linux-gnu/polkit-mate/polkit-mate-authentication-agent-1
 exec --no-startup-id autorandr --change
 exec --no-startup-id nm-applet
