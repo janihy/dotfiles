@@ -1,0 +1,14 @@
+profile {
+  output eDP-1 disable
+  output "Dell Inc. DELL U3223QE 6XSV9H3" enable scale 1.25
+}
+
+profile {
+  output eDP-1 enable
+}
+
+profile {
+  output eDP-1 disable
+  output "Lenovo Group Limited LEN P27h-10 0x00005A4E" enable 
+  output "Lenovo Group Limited LEN P27h-10 0x00005A59" enable
+} 
