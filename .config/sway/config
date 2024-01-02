@@ -38,6 +38,11 @@ input * {
   xkb_options "ctrl:nocaps,nbsp:none"
 }
 
+input type:touchpad {
+    tap enabled
+    natural_scroll enabled
+}
+
 # You can get the names of your inputs by running: swaymsg -t get_inputs
 # Read `man 5 sway-input` for more information about this section.
 
@@ -176,9 +181,10 @@ bindsym $mod+l exec swaylock -f -c 000000
 bindsym Shift+$mod+s exec grim -g "$(slurp -d)" - | /home/jani/bin/swappy -f -
 
 # shift+print screen for whole window snipping with markup
+# install https://github.com/jtheoof/swappy
 bindsym Shift+Print grim -g "$(swaymsg -t get_tree | jq -r '.. | select(.pid? and .visible?) | .rect | "\(.x),\(.y) \(.width)x\(.height)"' | slurp)" - | /home/jani/bin/swappy -f -
 
-#exec_always pkill kanshi; exec kanshi
+exec_always pkill kanshi; exec kanshi
 exec_always nm-applet --indicator
 
 
@@ -198,3 +204,10 @@ bindsym $mod+Shift+Control+Right move workspace to output right
 
 bindsym XF86MonBrightnessUp exec brightnessctl set +20
 bindsym XF86MonBrightnessDown exec brightnessctl set 20-
+
+bindsym $mod+p exec wdisplays
+for_window [app_id="wdisplays"] floating enable
+
+bindsym $mod+period exec /home/jani/.local/bin/rofimoji
+
+

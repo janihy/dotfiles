@@ -12,3 +12,7 @@ profile {
   output "Lenovo Group Limited LEN P27h-10 0x00005A4E" enable 
   output "Lenovo Group Limited LEN P27h-10 0x00005A59" enable
 } 
+
+profile {
+  output "Sharp Corporation 0x1476 0x00000000" enable scale 1.5
+}
