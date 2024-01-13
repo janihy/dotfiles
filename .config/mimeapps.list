@@ -24,3 +24,4 @@ text/csv=sublime_text.desktop;
 
 [Added Associations]
 image/png=gimp.desktop;
+image/jpeg=firefox-esr.desktop;
