@@ -155,3 +155,5 @@ for_window [app_id="wdisplays"] floating enable
 bindsym $mod+period exec /home/jani/.local/bin/rofimoji
 
 exec_always import-gsettings.sh
+
+exec_always /usr/libexec/polkit-mate-authentication-agent-1

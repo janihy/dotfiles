@@ -1,6 +1,2 @@
-# -- THEME AUTO-WRITTEN BY gtk-theme-switch2 DO NOT EDIT
+# still needed by gtk2.0 apps such as gimp
 include "/usr/share/themes/Materia-dark/gtk-2.0/gtkrc"
-
-include "/home/jani/.gtkrc-2.0.mine"
-
-# -- THEME AUTO-WRITTEN BY gtk-theme-switch2 DO NOT EDIT
