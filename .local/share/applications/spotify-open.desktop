@@ -1,10 +1,13 @@
 [Desktop Entry]
 Type=Application
 Name=Open in Spotify
-GenericName=Music Player
 Icon=spotify-client
-#Exec=dbus-send --type=method_call --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.OpenUri string:%u
-Exec=echo %k
+# at least chrome force-appends the url and does not respect the $u
+# in https://specifications.freedesktop.org/desktop-entry-spec/latest/exec-variables.html
+# could create an auxiliary script to handle this, but playerctl open accepts
+# the spotify:uri as a parameter so let's just use it
+#Exec=echo dbus-send --type=method_call --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.OpenUri string:%u
+Exec=playerctl open
 Terminal=false
 MimeType=x-scheme-handler/spotify;
 Categories=Audio;Music;Player;AudioVideo;
