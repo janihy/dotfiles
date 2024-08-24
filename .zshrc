@@ -58,7 +58,21 @@ export UPDATE_ZSH_DAYS=31
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git gitignore thefuck extract gpg-agent pip colored-man-pages colorize history command-not-found direnv taskwarrior pass ripgrep)
+plugins=(
+  colored-man-pages
+  colorize
+  command-not-found
+  direnv
+  extract
+  git
+  gpg-agent
+  nvm
+  pass
+  pip
+  taskwarrior
+  thefuck
+  )
+
 export ZSH_AUTOSUGGEST_STRATEGY=(history)
 
 source $ZSH/oh-my-zsh.sh
@@ -95,7 +109,7 @@ if [[ -z ~/.zshrc.local ]]; then
   source ~/.zshrc.local
 fi
 
-export RIPGREP_CONFIG_PATH=$HOME/.ripgreprc
+export RIPGREP_CONFIG_PATH=$HOME/.config/.ripgreprc
 export POWERLEVEL9K_TERM_SHELL_INTEGRATION=true
 
 export ZSH_AUTOSUGGEST_BUFFER_MAX_SIZE=20

@@ -2,3 +2,4 @@ romkatv/powerlevel10k
 zsh-users/zsh-autosuggestions
 z-shell/zsh-diff-so-fancy
 zsh-users/zsh-syntax-highlighting
+unixorn/fzf-zsh-plugin
