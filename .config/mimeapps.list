@@ -1,27 +1,25 @@
 [Default Applications]
-text/html=google-chrome.desktop
-x-scheme-handler/http=google-chrome.desktop
-x-scheme-handler/https=google-chrome.desktop
-x-scheme-handler/about=google-chrome.desktop
-x-scheme-handler/unknown=google-chrome.desktop
-x-scheme-handler/spotify=spotify-open.desktop
-image/jpeg=feh.desktop
-x-scheme-handler/msteams=teams-insiders.desktop
+application/javascript=sublime_text.desktop;
 application/json=sublime_text.desktop
-application/x-yaml=sublime_text.desktop
-text/plain=sublime_text.desktop
-text/x-log=sublime_text.desktop
-application/pdf=chromium.desktop
 application/octet-stream=sublime_text.desktop;
-audio/x-xm=mpv.desktop;
-audio/mpeg=mpv.desktop;
+application/vnd.tcpdump.pcap=wireshark.desktop;
 application/x-ole-storage=sublime_text.desktop;
 application/x-shellscript=sublime_text.desktop;
-application/vnd.tcpdump.pcap=wireshark.desktop;
+application/x-yaml=sublime_text.desktop
 application/xml=sublime_text.desktop;
-application/javascript=sublime_text.desktop;
+audio/mpeg=mpv.desktop;
+audio/x-xm=mpv.desktop;
+image/gif=org.gnome.eog.desktop;
+image/jpeg=org.gnome.eog.desktop;
+image/png=org.gnome.eog.desktop;
+image/webp=org.gnome.eog.desktop;
 text/csv=sublime_text.desktop;
+text/html=google-chrome.desktop
+text/plain=sublime_text.desktop
+text/x-log=sublime_text.desktop
+x-scheme-handler/about=google-chrome.desktop
+x-scheme-handler/http=google-chrome.desktop
+x-scheme-handler/https=google-chrome.desktop
 
 [Added Associations]
-image/png=gimp.desktop;
-image/jpeg=firefox-esr.desktop;
+application/pdf=calibre-ebook-viewer.desktop;org.pwmt.zathura-pdf-poppler.desktop;org.gnome.Evince.desktop;
