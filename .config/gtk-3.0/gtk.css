@@ -1,0 +1,16 @@
+/* Some apps use titlebar class and some window
+ * from https://github.com/swaywm/sway/wiki/GTK-3-settings-on-Wayland */
+.titlebar,
+window {
+    border-radius: 0;
+    box-shadow: none;
+}
+
+/** also remove shadows */
+decoration {
+    box-shadow: none;
+}
+
+decoration:backdrop {
+    box-shadow: none;
+}
