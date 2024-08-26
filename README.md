@@ -12,8 +12,5 @@ $ sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/instal
 
 $ git clone --depth=1 https://github.com/mattmc3/antidote.git ${ZDOTDIR:-~}/.antidote
 
-# pip3 install thefuck
-$ pip3 install --user rofimoji
-
 # install kitty: https://sw.kovidgoyal.net/kitty/binary/#manually-installing
 ```
