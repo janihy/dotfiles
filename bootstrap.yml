@@ -1,0 +1,76 @@
+- name: Configure everything
+  hosts: localhost
+
+  tasks:
+  - name: Install packages with apt
+    become: yes
+    ansible.builtin.apt:
+      name:
+        - apt-transport-https
+        - bat
+        - binwalk
+        - blueman
+        - build-essential
+        - command-not-found
+        - curl
+        - direnv
+        - dnsutils
+        - exiftool
+        - firefox-esr
+        - fonts-font-awesome
+        - fonts-noto
+        - fwupd
+        - fzf
+        - gimp
+        - git
+        - gnupg2
+        - google-chrome-stable
+        - grim
+        - hexyl
+        - httpie
+        - jid
+        - jq
+        - kanshi
+        - libpam-u2f
+        - lightdm
+        - logiops
+        - mate-polkit
+        - materia-gtk-theme
+        - mesa-utils
+        - meson
+        - neofetch
+        - network-manager-gnome
+        - ninja-build
+        - nodejs
+        - playerctl
+        - psmisc
+        - python3
+        - python3-pip
+        - python3-venv
+        - qalc
+        - ranger
+        - ripgrep
+        - scdoc
+        - slurp
+        - ssh-audit
+        - sshfs
+        - sublime-merge
+        - sublime-text
+        - sway
+        - sway-notification-center
+        - swaybg
+        - swayidle
+        - taskwarrior
+        - thunar
+        - thunar-archive-plugin
+        - tshark
+        - vagrant
+        - vim
+        - virt-manager
+        - waybar
+        - wdisplays
+        - wireshark
+        - wl-clipboard
+        - wofi
+        - zsh
+      state: present
