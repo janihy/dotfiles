@@ -154,6 +154,7 @@ for_window [app_id="wdisplays"] floating enable
 
 bindsym $mod+period exec /home/jani/.local/bin/rofimoji
 
-exec_always import-gsettings.sh
+exec_always /home/jani/.config/sway/scripts/import_gsettings
 
 exec_always /usr/libexec/polkit-mate-authentication-agent-1
+bindsym XF86PowerOff exec /home/jani/.config/sway/scripts/wofi-csv power
