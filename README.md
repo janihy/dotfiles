@@ -7,8 +7,6 @@ $ git clone https://github.com/janihy/dotfiles.git
 $ ansible-playbook --ask-become-pass bootstrap.yml
 
 $ curl -fsSL https://deb.nodesource.com/setup_16.x | bash -
-$ wget -qO - https://download.sublimetext.com/sublimehq-pub.gpg | sudo apt-key add -
-
 
 $ sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
 
