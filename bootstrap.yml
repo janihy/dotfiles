@@ -1,5 +1,6 @@
 - name: Configure everything
   hosts: localhost
+  remote_user: jani
   become: yes
 
   tasks:
@@ -115,3 +116,7 @@
         - zsh
       state: present
       update_cache: true
+  - name: Make zsh the default shell
+    user:
+      name: "{{ ansible_user }}"
+      shell: "/usr/bin/zsh"
