@@ -59,6 +59,7 @@
         - firefox-esr
         - fonts-font-awesome
         - fonts-noto
+        - fonts-noto-color-emoji
         - fwupd
         - fzf
         - gimp
@@ -122,10 +123,11 @@
     ansible.builtin.pip:
       break_system_packages: true
       name:
-        - ansible # the pip break_system_packages needs ansible=>2.17, this does not actually do the trick so it has to be installed manually
+        - ansible
         - rofimoji
       state: latest
     become: false # only break user packages, not system-wide 😏
+    when: ansible_version.full is version('2.17', '>=') # you may need to update ansible first manually-ish
 
   - name: Make zsh the default shell
     user:
