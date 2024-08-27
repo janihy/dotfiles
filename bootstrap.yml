@@ -1,7 +1,11 @@
+
 - name: Configure everything
   hosts: localhost
+  vars:
+    kitty_root: "{{ ansible_env.HOME }}/.local/kitty.app"
+    local_bin: "{{ ansible_env.HOME }}/.local/bin"
+    tmp_folder: "{{ ansible_env.HOME }}/tmp"
   remote_user: jani
-  become: yes
 
   tasks:
   - name: Gather package facts
@@ -9,31 +13,37 @@
       manager: apt
 
   - name: Add Sublime HQ apt key
+    become: true
     ansible.builtin.get_url:
       url: https://download.sublimetext.com/sublimehq-pub.gpg
       dest: /etc/apt/keyrings/sublime-text.asc
   - name: Add Sublime HQ apt repository
+    become: true
     ansible.builtin.apt_repository:
       repo: deb [signed-by=/etc/apt/keyrings/sublime-text.asc] https://download.sublimetext.com/ apt/stable/
       state: present
       filename: sublime-text
 
   - name: Add Keybase apt key
+    become: true
     ansible.builtin.get_url:
       url: https://keybase.io/docs/server_security/code_signing_key.asc
       dest: /etc/apt/keyrings/keybase.asc
   - name: Add Keybase apt repository
+    become: true
     ansible.builtin.apt_repository:
       repo: deb [signed-by=/etc/apt/keyrings/keybase.asc] http://prerelease.keybase.io/deb stable main
       state: present
       filename: keybase
   - name: Touch /etc/default/keybase to avoid automatic repo configuration # see https://keybase.io/docs/the_app/install_linux
+    become: true
     ansible.builtin.file:
       path: /etc/default/keybase
       state: touch
     when: '"keybase" not in ansible_facts.packages'
 
   - name: Add Wire apt key
+    become: true
     ansible.builtin.get_url:
       url: https://wire-app.wire.com/linux/releases.key
       dest: /etc/apt/keyrings/wire.asc
@@ -44,6 +54,7 @@
       filename: wire-desktop
 
   - name: Install packages with apt
+    become: true
     ansible.builtin.apt:
       name:
         - apt-transport-https
@@ -73,6 +84,7 @@
         - jq
         - kanshi
         - keybase
+        - kitty-terminfo
         - libpam-u2f
         - lightdm
         - logiops
@@ -133,3 +145,42 @@
     user:
       name: "{{ ansible_user }}"
       shell: "/usr/bin/zsh"
+
+  - name: Fetch the latest version of Kitty
+    set_fact:
+      kitty_latest: "{{ lookup('url', 'https://sw.kovidgoyal.net/kitty/current-version.txt') }}"
+  - name: Ask local Kitty version
+    ansible.builtin.command: "{{ kitty_root }}/bin/kitty --version"
+    register: kitty_installed_version
+  - name: Set the current Kitty version to a variable
+    ansible.builtin.set_fact:
+      kitty_installed: "{{ kitty_installed_version.stdout.split(' ')[1] | trim | string }}"
+  - name: Install latest Kitty
+    block:
+      - name: Download Kitty tarball
+        ansible.builtin.get_url:
+          url: "https://github.com/kovidgoyal/kitty/releases/download/v{{ kitty_latest }}/kitty-{{ kitty_latest }}-x86_64.txz"
+          dest: "{{ tmp_folder }}/kitty-{{ kitty_latest }}-x86_64.txz"
+          mode: "0640"
+      - name: Extract Kitty
+        ansible.builtin.unarchive:
+          src: "{{ tmp_folder }}/kitty-{{ kitty_latest }}-x86_64.txz"
+          dest: "{{ kitty_root }}"
+          remote_src: true
+    when:
+      - kitty_installed != kitty_latest
+  - name: Kitty symlink in place
+    ansible.builtin.file:
+      state: link
+      src: "{{ kitty_root }}/bin/kitty"
+      dest: "{{ local_bin }}/kitty"
+      mode: "0777"
+    tags: test
+
+  - name: Kitten symlink in place
+    ansible.builtin.file:
+      state: link
+      src: "{{ kitty_root }}/bin/kitten"
+      dest: "{{ local_bin }}/kitten"
+      mode: "0777"
+    tags: test
