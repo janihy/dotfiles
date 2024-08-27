@@ -5,6 +5,7 @@
     kitty_root: "{{ ansible_env.HOME }}/.local/kitty.app"
     local_bin: "{{ ansible_env.HOME }}/.local/bin"
     tmp_folder: "{{ ansible_env.HOME }}/tmp"
+    swappy_target_version: "1.5.1"
   remote_user: jani
 
   tasks:
@@ -91,10 +92,8 @@
         - mate-polkit
         - materia-gtk-theme
         - mesa-utils
-        - meson
         - neofetch
         - network-manager-gnome
-        - ninja-build
         - nodejs
         - playerctl
         - psmisc
@@ -104,7 +103,6 @@
         - qalc
         - ranger
         - ripgrep
-        - scdoc
         - slurp
         - ssh-audit
         - sshfs
@@ -130,6 +128,62 @@
         - zsh
       state: present
       update_cache: true
+
+  - name: Install swappy build dependencies from apt
+    become: true
+    ansible.builtin.apt:
+      name:
+        - libglib2.0-dev
+        - libgtk-3-dev
+        - meson
+        - ninja-build
+        - scdoc
+      state: present
+  - name: Check if swappy is already installed
+    ansible.builtin.stat:
+      path: "{{ local_bin }}/swappy"
+    register: swappy_present
+    tags: swappy
+  - name:
+    block:
+    - name: Ask local swappy version
+      ansible.builtin.command: "swappy --version"
+      changed_when: false
+      register: swappy_version_command
+    - name: Set the current swappy version to a variable
+      ansible.builtin.set_fact:
+        swappy_installed_version: "{{ swappy_version_command.stdout.split(' ')[2] | trim | string }}"
+    tags: swappy
+    when:
+      - swappy_present is defined
+      - swappy_present.stat.exists | bool
+  - name: Install latest swappy
+    block:
+      - name: Download swappy tarball
+        ansible.builtin.get_url:
+          url: "https://github.com/jtheoof/swappy/releases/download/v{{ swappy_target_version }}/swappy-{{ swappy_target_version }}.tar.gz"
+          dest: "{{ tmp_folder }}/swappy-{{ swappy_target_version }}.tar.gz"
+          mode: "0640"
+      - name: Extract swappy
+        ansible.builtin.unarchive:
+          src: "{{ tmp_folder }}/swappy-{{ swappy_target_version }}.tar.gz"
+          dest: "{{ tmp_folder }}"
+          remote_src: true
+          creates: "{{ tmp_folder }}/swappy-{{ swappy_target_version}}"
+      - name: Compile swappy
+        ansible.builtin.shell:
+          chdir: "{{ tmp_folder }}/swappy-{{ swappy_target_version}}"
+          cmd: |
+            meson setup build
+            ninja -C build
+      - name: Copy swappy executable to local bin
+        ansible.builtin.copy:
+          src: "{{ tmp_folder }}/swappy-{{ swappy_target_version}}/build/swappy"
+          dest: "{{ local_bin}}"
+          mode: 0755
+    when:
+      - swappy_installed_version is not defined or (swappy_installed_version is defined and swappy_installed_version != swappy_target_version)
+    tags: swappy
 
   - name: Install packages from pip
     ansible.builtin.pip:

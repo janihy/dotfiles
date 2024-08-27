@@ -123,7 +123,7 @@ bindsym $mod+l exec swaylock -f -c 000000
 
 # shift+super+s for snipping tool
 # install https://github.com/jtheoof/swappy
-bindsym Shift+$mod+s exec grim -g "$(slurp -d)" - | /home/jani/bin/swappy -f -
+bindsym Shift+$mod+s exec grim -g "$(slurp -d)" - | /home/jani/.local/bin/swappy -f -
 
 # shift+print screen for whole window snipping with markup
 bindsym Shift+Print grim -g "$(swaymsg -t get_tree | jq -r '.. | select(.pid? and .visible?) | .rect | "\(.x),\(.y) \(.width)x\(.height)"' | slurp)" - | /home/jani/bin/swappy -f -
