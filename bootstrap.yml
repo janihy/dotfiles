@@ -146,6 +146,12 @@
       name: "{{ ansible_user }}"
       shell: "/usr/bin/zsh"
 
+  - name: Install antidote (clone git repo to ~)
+    ansible.builtin.git:
+      repo: 'https://github.com/mattmc3/antidote.git'
+      depth: 1
+      dest: "{{ ansible_env.HOME }}/.antidote"
+
   - name: Fetch the latest version of Kitty
     set_fact:
       kitty_latest: "{{ lookup('url', 'https://sw.kovidgoyal.net/kitty/current-version.txt') }}"
@@ -175,7 +181,6 @@
       src: "{{ kitty_root }}/bin/kitty"
       dest: "{{ local_bin }}/kitty"
       mode: "0777"
-    tags: test
 
   - name: Kitten symlink in place
     ansible.builtin.file:
@@ -183,4 +188,3 @@
       src: "{{ kitty_root }}/bin/kitten"
       dest: "{{ local_bin }}/kitten"
       mode: "0777"
-    tags: test
