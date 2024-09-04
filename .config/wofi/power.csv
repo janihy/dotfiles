@@ -1,0 +1,3 @@
+logout,"swaymsg exit"
+reboot,"systemctl reboot"
+power off,"systemctl poweroff"
