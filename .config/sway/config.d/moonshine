@@ -9,3 +9,8 @@ exec swayidle -w \
     timeout 600 'swaymsg "output * dpms off"' resume 'swaymsg "output * dpms on"' \
     timeout 590 'notify-send -i display -t 3000 -u low "Sway" "The screen will go blank in 10 seconds"' \
     before-sleep 'swaylock -f -c 000000'
+
+# map_to_output ensures touchscreen only points to things on the laptop's display - not on any other active display
+input "1267:9377:ELAN_Touchscreen" {
+    map_to_output eDP-1
+}

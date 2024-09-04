@@ -1,13 +1,13 @@
+################################################################################
+# window management & sway configuration
+# see reference e.g. at https://manpages.debian.org/bookworm/sway/sway.5.en.html
+################################################################################
+
 # use super as the modifier
 set $mod Mod4
 
-set $left h
-set $down j
-set $up k
-set $right l
-
 # force kitty to be the default terminal
-set $term /home/jani/.local/bin/kitty
+set $term ~/.local/bin/kitty
 
 # use wofi as the launcher, argument passed to swaymsg so it opens on the correct workspace
 set $menu wofi --show drun -M fuzzy | xargs swaymsg exec
@@ -17,6 +17,9 @@ include /etc/sway/config.d/*
 
 # include host-specific config already here
 include config.d/`hostname`
+
+# include window assignments & such
+include config.d/windows
 
 # finnish layout, map caps=ctrl, no nbsp spaces ever
 input * {
@@ -30,23 +33,48 @@ input type:touchpad {
     natural_scroll enabled
 }
 
+# floating windows can be dragged with $mod + left click and
+# resized with $mod + right click
+floating_modifier $mod normal
+
+focus_follows_mouse always
+workspace_auto_back_and_forth yes
+
+
+################################################################################
+# visuals
+################################################################################
+
+smart_borders no_gaps
+
+set $bg #171717
+set $fg #eff1f5
+set $br #ffcc00
+set $ia #232425
+
+
+# class                   border  background  text    indicator child_border
+client.focused            $br     $br         $bg     $fg       $br
+client.focused_inactive   $bg     $bg         $fg     $bg       $bg
+client.focused_tab_title  $br     $br         $bg     $fg       $br
+client.unfocused          $bg     $bg         $fg     $bg       $bg
+client.background $bg
+
 bar {
     position bottom
     swaybar_command waybar
 }
 
 
+################################################################################
 # key bindings
+################################################################################
 
 bindsym $mod+Return exec $term
 bindsym $mod+Shift+q kill
+bindsym $mod+Shift+c reload
 bindsym $mod+d exec $menu
 
-floating_modifier $mod normal
-
-bindsym $mod+Shift+c reload
-
-bindsym $mod+Shift+e exec swaynag -t warning -m 'You pressed the exit shortcut. Do you really want to exit sway? This will end your Wayland session.' -B 'Yes, exit sway' 'swaymsg exit'
 bindsym $mod+Left focus left
 bindsym $mod+Down focus down
 bindsym $mod+Up focus up
@@ -94,18 +122,9 @@ bindsym $mod+space focus mode_toggle
 
 bindsym $mod+a focus parent
 
-#
-# Scratchpad:
-#
-    # Sway has a "scratchpad", which is a bag of holding for windows.
-    # You can send windows there and get them back later.
-
-    # Move the currently focused window to the scratchpad
-    bindsym $mod+Shift+minus move scratchpad
-
-    # Show the next scratchpad window or hide the focused scratchpad window.
-    # If there are multiple scratchpad windows, this command cycles through them.
-    bindsym $mod+minus scratchpad show
+# sway default scratchpad functionality
+bindsym $mod+Shift+minus move scratchpad
+bindsym $mod+minus scratchpad show
 
 mode "resize" {
     bindsym Left resize shrink width 10px
@@ -113,26 +132,24 @@ mode "resize" {
     bindsym Up resize shrink height 10px
     bindsym Right resize grow width 10px
 
-    bindsym Return mode "default"
     bindsym Escape mode "default"
 }
 bindsym $mod+r mode "resize"
 
-
+# windows-like locking with $mod+l
 bindsym $mod+l exec swaylock -f -c 000000
 
-# shift+super+s for snipping tool
+# windows-like monitor quick setup with $mod+p
+bindsym $mod+p exec wdisplays
+
+# windows-like shift+$mod+s for snipping tool
 # install https://github.com/jtheoof/swappy
-bindsym Shift+$mod+s exec grim -g "$(slurp -d)" - | /home/jani/.local/bin/swappy -f -
+bindsym Shift+$mod+s exec grim -g "$(slurp -d)" - | ~/.local/bin/swappy -f -
 
 # shift+print screen for whole window snipping with markup
-bindsym Shift+Print grim -g "$(swaymsg -t get_tree | jq -r '.. | select(.pid? and .visible?) | .rect | "\(.x),\(.y) \(.width)x\(.height)"' | slurp)" - | /home/jani/bin/swappy -f -
+bindsym Shift+Print grim -g "$(swaymsg -t get_tree | jq -r '.. | select(.pid? and .visible?) | .rect | "\(.x),\(.y) \(.width)x\(.height)"' | slurp)" - | ~/.local/bin/swappy -f -
 
-# TODO: convert this a systemd service to avoid problems
-exec_always pkill kanshi; exec kanshi
-exec_always nm-applet --indicator
-
-# Use pactl to adjust volume in PulseAudio.
+# map volume keys to pactl commands
 bindsym XF86AudioRaiseVolume exec pactl set-sink-volume @DEFAULT_SINK@ +5%
 bindsym XF86AudioLowerVolume exec pactl set-sink-volume @DEFAULT_SINK@ -5%
 bindsym XF86AudioMute exec pactl set-sink-mute @DEFAULT_SINK@ toggle
@@ -146,15 +163,29 @@ bindsym XF86AudioPrev exec playerctl previous
 bindsym $mod+Shift+Control+Left move workspace to output left
 bindsym $mod+Shift+Control+Right move workspace to output right
 
+# use brightnessctl to handle laptop display brightness
 bindsym XF86MonBrightnessUp exec brightnessctl set +5%
 bindsym XF86MonBrightnessDown exec brightnessctl set 5%-
 
-bindsym $mod+p exec wdisplays
-for_window [app_id="wdisplays"] floating enable
+# "fancy" power menu
+bindsym XF86PowerOff exec ~/.config/sway/scripts/wofi-csv power
 
-bindsym $mod+period exec /home/jani/.local/bin/rofimoji
+# emoji picker 🔥
+bindsym $mod+period exec ~/.local/bin/rofimoji
 
-exec_always /home/jani/.config/sway/scripts/import_gsettings
 
+################################################################################
+# autostart
+################################################################################
+
+exec_always ~/.config/sway/scripts/import_gsettings
 exec_always /usr/libexec/polkit-mate-authentication-agent-1
-bindsym XF86PowerOff exec /home/jani/.config/sway/scripts/wofi-csv power
+
+# TODO: convert this a systemd service to avoid problems
+exec_always pkill kanshi; exec kanshi
+exec_always nm-applet --indicator
+
+
+# for logitech mouse battery notifications?
+# already using logiops for buttons and gestures
+# exec solaar --window=hide
