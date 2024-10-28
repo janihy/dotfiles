@@ -2,7 +2,7 @@
 export PATH=$HOME/bin:$HOME/.local/bin:/usr/local/bin:$PATH
 
 # Path to your oh-my-zsh installation.
-export ZSH="/home/jani/.oh-my-zsh"
+export ZSH="$HOME/.oh-my-zsh"
 export TERM=xterm-kitty
 
 # Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
@@ -86,7 +86,7 @@ else
   export EDITOR='subl -n -w'
 fi
 
-alias ls='ls -alh --color=auto --hyperlink=auto'
+alias ls='ls -alh --color=auto'
 alias mkdir='mkdir -pv'
 alias cp='cp -iv'
 alias mv='mv -iv'
@@ -105,7 +105,7 @@ bindkey "^[Oc" forward-word
 bindkey '^H' backward-kill-word
 bindkey "\e[3^": kill-word
 
-if [[ -z ~/.zshrc.local ]]; then
+if [[ -f ~/.zshrc.local ]]; then
   source ~/.zshrc.local
 fi
 
@@ -118,7 +118,12 @@ export ZSH_AUTOSUGGEST_BUFFER_MAX_SIZE=20
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
 # source antidote
-source ${ZDOTDIR:-~}/.antidote/antidote.zsh
+# one should use $OSTYPE instead but let's refactor later
+if [[ $(uname) == "Darwin" ]]; then
+  source /opt/homebrew/opt/antidote/share/antidote/antidote.zsh
+else
+  source ${ZDOTDIR:-~}/.antidote/antidote.zsh
+fi
 
 # initialize plugins statically with ${ZDOTDIR:-~}/.zsh_plugins.txt
 antidote load
