@@ -68,10 +68,12 @@
         - direnv
         - dnsutils
         - exiftool
+        - fd-find
         - firefox-esr
         - fonts-font-awesome
         - fonts-noto
         - fonts-noto-color-emoji
+        - fuzzel
         - fwupd
         - fzf
         - gimp

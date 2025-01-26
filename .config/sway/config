@@ -3,14 +3,19 @@
 # see reference e.g. at https://manpages.debian.org/bookworm/sway/sway.5.en.html
 ################################################################################
 
-# use super as the modifier
-set $mod Mod4
+set {
+    # use super as the modifier
+    $mod Mod4
 
-# force kitty to be the default terminal
-set $term ~/.local/bin/kitty
+    # force kitty to be the default terminal
+    $term ~/.local/bin/kitty
 
-# use wofi as the launcher, argument passed to swaymsg so it opens on the correct workspace
-set $menu wofi --show drun -M fuzzy | xargs swaymsg exec
+    # use wofi as the launcher, argument passed to swaymsg so the application opens on the correct workspace
+    # $menu wofi --show drun -M fuzzy | xargs swaymsg exec
+
+    # testing out fuzzel to replace wofi as wofi has wonky fuzzy search
+    $menu fuzzel
+}
 
 # include some system-provided env stuff and my config modules
 # in addition to host-specific config
@@ -97,6 +102,9 @@ bindsym {
     $mod+9 workspace number 9
     $mod+0 workspace number 10
 
+    # the following could be used if you want to move containers to another
+    # workspace and move there - maybe another keybinding for that
+    # $mod+Shift+1 [con_id=__focused__] move container to workspace number 1, focus
     $mod+Shift+1 move container to workspace number 1
     $mod+Shift+2 move container to workspace number 2
     $mod+Shift+3 move container to workspace number 3
@@ -191,5 +199,5 @@ exec_always {
 
     # for logitech mouse battery notifications and key mapping
     # logiops was used previously but it does not offer all the features
-    solaar --window=hide
+    solaar -w hide -b solaar
 }
