@@ -1,0 +1,2 @@
+#!/bin/sh
+grim -g "$(swaymsg -t get_tree | jq -r '.. | (.nodes?,.floating_nodes?)[]? | select(.pid and .visible) | "\(.rect.x),\(.rect.y-.deco_rect.height) \(.rect.width)x\(.rect.height+.deco_rect.height)"' | slurp)" - | ~/.local/bin/swappy -f -

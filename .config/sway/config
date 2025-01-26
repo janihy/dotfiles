@@ -154,8 +154,8 @@ bindsym {
     # currently, this is a bit ugly with non-integer screen scaling
     Shift+$mod+s exec grim -g "$(slurp -d)" - | ~/.local/bin/swappy -f -
 
-    # shift+print screen for whole window snipping with markup
-    Shift+Print grim -g "$(swaymsg -t get_tree | jq -r '.. | select(.pid? and .visible?) | .rect | "\(.x),\(.y) \(.width)x\(.height)"' | slurp)" - | ~/.local/bin/swappy -f -
+    # shift+$mod+w for screenshot of a selected window with markup
+    Shift+$mod+w exec ~/.config/sway/scripts/window-screenshot
 
     # map volume keys to pactl commands
     XF86AudioRaiseVolume exec pactl set-sink-volume @DEFAULT_SINK@ +5%
