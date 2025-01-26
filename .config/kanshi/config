@@ -1,10 +1,6 @@
 profile {
   output eDP-1 disable
-  output "Dell Inc. DELL U3223QE 6XSV9H3" enable scale 1.25
-}
-
-profile {
-  output eDP-1 enable
+  output "Dell Inc. DELL U3223QE 6XSV9H3" enable scale 1.25 mode 3840x2160@60Hz
 }
 
 profile {
