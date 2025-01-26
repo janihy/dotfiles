@@ -39,7 +39,7 @@
 		"SublimeLinter-csslint",
 		"SublimeLinter-flake8",
 		"Theme - Gravity",
-		"Vue Syntax Highlight",
+		"Vue",
 		"Zen Tabs",
 	],
 }

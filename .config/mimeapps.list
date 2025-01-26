@@ -21,6 +21,11 @@ text/x-log=sublime_text.desktop
 x-scheme-handler/about=google-chrome.desktop
 x-scheme-handler/http=google-chrome.desktop
 x-scheme-handler/https=google-chrome.desktop
+x-scheme-handler/tonsite=org.telegram.desktop._8ea2d4c88eb5c6ae6115ca49af65b634.desktop
 
 [Added Associations]
 application/pdf=calibre-ebook-viewer.desktop;org.pwmt.zathura-pdf-poppler.desktop;org.gnome.Evince.desktop;
+x-scheme-handler/tonsite=org.telegram.desktop._8ea2d4c88eb5c6ae6115ca49af65b634.desktop;
+text/markdown=obsidian.desktop;
+application/vnd.tcpdump.pcap=org.wireshark.Wireshark.desktop;
+image/tiff=org.gnome.eog.desktop;
