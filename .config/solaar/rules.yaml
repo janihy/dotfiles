@@ -1,0 +1,5 @@
+%YAML 1.3
+---
+- Key: [Smart Shift, pressed]
+- Execute: [playerctl, play-pause]
+...

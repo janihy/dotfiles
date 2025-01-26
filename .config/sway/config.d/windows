@@ -1,9 +1,0 @@
-for_window [app_id="(pavucontrol|psensor)"] floating enable
-for_window [app_id="org.gnome.(Calculator|Calendar|Settings|Nautilus|Weather)"] floating enable
-for_window [app_id="solaar"] floating enable
-for_window [app_id="wdisplays"] floating enable
-
-
-assign [app_id="google-chrome"] → workspace 1
-assign [app_id="virt-manager"] → workspace 5
-assign [class="Firefox-esr"] → workspace 1

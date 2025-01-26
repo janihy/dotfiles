@@ -1,0 +1,16 @@
+for_window {
+    [app_id="(pavucontrol|psensor)"] floating enable
+    [app_id="org.gnome.(Calculator|Calendar|Settings|Nautilus|Weather)"] floating enable
+    [app_id="solaar"] floating enable
+    [app_id="wdisplays"] floating enable
+    [app_id="nm-connection-editor"] floating enable
+    [window_role="pop-up"] floating enable
+    [window_role="bubble"] floating enable
+    [window_role="dialog"] floating enable
+    [window_type="dialog"] floating enable
+}
+
+assign {
+    [app_id="google-chrome"] → workspace 1
+    [app_id="firefox-esr"] → workspace 1
+}

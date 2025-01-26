@@ -88,7 +88,6 @@
         - kitty-terminfo
         - libpam-u2f
         - lightdm
-        - logiops
         - mate-polkit
         - materia-gtk-theme
         - mesa-utils
@@ -104,6 +103,7 @@
         - ranger
         - ripgrep
         - slurp
+        - solaar
         - ssh-audit
         - sshfs
         - sublime-merge
