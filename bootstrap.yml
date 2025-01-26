@@ -1,4 +1,3 @@
-
 - name: Configure everything
   hosts: localhost
   vars:
@@ -10,238 +9,239 @@
   remote_user: jani
 
   tasks:
-  - name: Gather package facts
-    package_facts:
-      manager: apt
+    - name: Gather package facts
+      package_facts:
+        manager: apt
 
-  - name: Add Sublime HQ apt key
-    become: true
-    ansible.builtin.get_url:
-      url: https://download.sublimetext.com/sublimehq-pub.gpg
-      dest: /etc/apt/keyrings/sublime-text.asc
-  - name: Add Sublime HQ apt repository
-    become: true
-    ansible.builtin.apt_repository:
-      repo: deb [signed-by=/etc/apt/keyrings/sublime-text.asc] https://download.sublimetext.com/ apt/stable/
-      state: present
-      filename: sublime-text
+    - name: Add Sublime HQ apt key
+      become: true
+      ansible.builtin.get_url:
+        url: https://download.sublimetext.com/sublimehq-pub.gpg
+        dest: /etc/apt/keyrings/sublime-text.asc
+    - name: Add Sublime HQ apt repository
+      become: true
+      ansible.builtin.apt_repository:
+        repo: deb [signed-by=/etc/apt/keyrings/sublime-text.asc] https://download.sublimetext.com/ apt/stable/
+        state: present
+        filename: sublime-text
 
-  - name: Add Keybase apt key
-    become: true
-    ansible.builtin.get_url:
-      url: https://keybase.io/docs/server_security/code_signing_key.asc
-      dest: /etc/apt/keyrings/keybase.asc
-  - name: Add Keybase apt repository
-    become: true
-    ansible.builtin.apt_repository:
-      repo: deb [signed-by=/etc/apt/keyrings/keybase.asc] http://prerelease.keybase.io/deb stable main
-      state: present
-      filename: keybase
-  - name: Touch /etc/default/keybase to avoid automatic repo configuration # see https://keybase.io/docs/the_app/install_linux
-    become: true
-    ansible.builtin.file:
-      path: /etc/default/keybase
-      state: touch
-    when: '"keybase" not in ansible_facts.packages'
+    - name: Add Keybase apt key
+      become: true
+      ansible.builtin.get_url:
+        url: https://keybase.io/docs/server_security/code_signing_key.asc
+        dest: /etc/apt/keyrings/keybase.asc
+    - name: Add Keybase apt repository
+      become: true
+      ansible.builtin.apt_repository:
+        repo: deb [signed-by=/etc/apt/keyrings/keybase.asc] http://prerelease.keybase.io/deb stable main
+        state: present
+        filename: keybase
+    - name: Touch /etc/default/keybase to avoid automatic repo configuration # see https://keybase.io/docs/the_app/install_linux
+      become: true
+      ansible.builtin.file:
+        path: /etc/default/keybase
+        state: touch
+      when: '"keybase" not in ansible_facts.packages'
 
-  - name: Install packages with apt
-    become: true
-    ansible.builtin.apt:
-      name:
-        - apt-transport-https
-        - bat
-        - binwalk
-        - blueman
-        - build-essential
-        - command-not-found
-        - curl
-        - direnv
-        - dnsutils
-        - exiftool
-        - fd-find
-        - firefox-esr
-        - fonts-font-awesome
-        - fonts-noto
-        - fonts-noto-color-emoji
-        - fuzzel
-        - fwupd
-        - fzf
-        - gimp
-        - git
-        - gnupg2
-        - google-chrome-stable
-        - grim
-        - hexyl
-        - httpie
-        - inotify-tools
-        - jid
-        - jq
-        - kanshi
-        - keybase
-        - kitty-terminfo
-        - libpam-u2f
-        - lightdm
-        - mate-polkit
-        - materia-gtk-theme
-        - mesa-utils
-        - neofetch
-        - network-manager-gnome
-        - playerctl
-        - psmisc
-        - python3
-        - python3-pip
-        - python3-venv
-        - qalc
-        - ranger
-        - ripgrep
-        - slurp
-        - solaar
-        - ssh-audit
-        - sshfs
-        - sublime-merge
-        - sublime-text
-        - sway
-        - sway-notification-center
-        - swaybg
-        - swayidle
-        - taskwarrior
-        - thefuck
-        - thunar
-        - thunar-archive-plugin
-        - tshark
-        - vagrant
-        - vim
-        - virt-manager
-        - waybar
-        - wdisplays
-        - wireshark
-        - wl-clipboard
-        - wofi
-        - zsh
-      state: present
-      update_cache: true
+    - name: Install packages with apt
+      become: true
+      ansible.builtin.apt:
+        name:
+          - apt-transport-https
+          - bat
+          - binwalk
+          - blueman
+          - build-essential
+          - command-not-found
+          - curl
+          - direnv
+          - dnsutils
+          - exiftool
+          - fd-find
+          - firefox-esr
+          - fonts-font-awesome
+          - fonts-noto
+          - fonts-noto-color-emoji
+          - fuzzel
+          - fwupd
+          - fzf
+          - golang-chroma
+          - gimp
+          - git
+          - gnupg2
+          - google-chrome-stable
+          - grim
+          - hexyl
+          - httpie
+          - inotify-tools
+          - jid
+          - jq
+          - kanshi
+          - keybase
+          - kitty-terminfo
+          - libpam-u2f
+          - lightdm
+          - mate-polkit
+          - materia-gtk-theme
+          - mesa-utils
+          - neofetch
+          - network-manager-gnome
+          - playerctl
+          - psmisc
+          - python3
+          - python3-pip
+          - python3-venv
+          - qalc
+          - ranger
+          - ripgrep
+          - slurp
+          - solaar
+          - ssh-audit
+          - sshfs
+          - sublime-merge
+          - sublime-text
+          - sway
+          - sway-notification-center
+          - swaybg
+          - swayidle
+          - taskwarrior
+          - thefuck
+          - thunar
+          - thunar-archive-plugin
+          - tshark
+          - vagrant
+          - vim
+          - virt-manager
+          - waybar
+          - wdisplays
+          - wireshark
+          - wl-clipboard
+          - wofi
+          - zsh
+        state: present
+        update_cache: true
 
-  - name: Install swappy build dependencies from apt
-    become: true
-    ansible.builtin.apt:
-      name:
-        - libglib2.0-dev
-        - libgtk-3-dev
-        - meson
-        - ninja-build
-        - scdoc
-      state: present
-  - name: Check if swappy is already installed
-    ansible.builtin.stat:
-      path: "{{ local_bin }}/swappy"
-    register: swappy_present
-    tags: swappy
-  - name:
-    block:
-    - name: Ask local swappy version
-      ansible.builtin.command: "swappy --version"
-      changed_when: false
-      register: swappy_version_command
-    - name: Set the current swappy version to a variable
-      ansible.builtin.set_fact:
-        swappy_installed_version: "{{ swappy_version_command.stdout.split(' ')[2] | trim | string }}"
-    tags: swappy
-    when:
-      - swappy_present is defined
-      - swappy_present.stat.exists | bool
-  - name: Install latest swappy
-    block:
-      - name: Download swappy tarball
-        ansible.builtin.get_url:
-          url: "https://github.com/jtheoof/swappy/releases/download/v{{ swappy_target_version }}/swappy-{{ swappy_target_version }}.tar.gz"
-          dest: "{{ tmp_folder }}/swappy-{{ swappy_target_version }}.tar.gz"
-          mode: "0640"
-      - name: Extract swappy
-        ansible.builtin.unarchive:
-          src: "{{ tmp_folder }}/swappy-{{ swappy_target_version }}.tar.gz"
-          dest: "{{ tmp_folder }}"
-          remote_src: true
-          creates: "{{ tmp_folder }}/swappy-{{ swappy_target_version}}"
-      - name: Compile swappy
-        ansible.builtin.shell:
-          chdir: "{{ tmp_folder }}/swappy-{{ swappy_target_version}}"
-          cmd: |
-            meson setup build
-            ninja -C build
-      - name: Copy swappy executable to local bin
-        ansible.builtin.copy:
-          src: "{{ tmp_folder }}/swappy-{{ swappy_target_version}}/build/swappy"
-          dest: "{{ local_bin}}"
-          mode: 0755
-    when:
-      - swappy_installed_version is not defined or (swappy_installed_version is defined and swappy_installed_version != swappy_target_version)
-    tags: swappy
+    - name: Install swappy build dependencies from apt
+      become: true
+      ansible.builtin.apt:
+        name:
+          - libglib2.0-dev
+          - libgtk-3-dev
+          - meson
+          - ninja-build
+          - scdoc
+        state: present
+    - name: Check if swappy is already installed
+      ansible.builtin.stat:
+        path: "{{ local_bin }}/swappy"
+      register: swappy_present
+      tags: swappy
+    - name:
+      block:
+        - name: Ask local swappy version
+          ansible.builtin.command: "swappy --version"
+          changed_when: false
+          register: swappy_version_command
+        - name: Set the current swappy version to a variable
+          ansible.builtin.set_fact:
+            swappy_installed_version: "{{ swappy_version_command.stdout.split(' ')[2] | trim | string }}"
+      tags: swappy
+      when:
+        - swappy_present is defined
+        - swappy_present.stat.exists | bool
+    - name: Install latest swappy
+      block:
+        - name: Download swappy tarball
+          ansible.builtin.get_url:
+            url: "https://github.com/jtheoof/swappy/releases/download/v{{ swappy_target_version }}/swappy-{{ swappy_target_version }}.tar.gz"
+            dest: "{{ tmp_folder }}/swappy-{{ swappy_target_version }}.tar.gz"
+            mode: "0640"
+        - name: Extract swappy
+          ansible.builtin.unarchive:
+            src: "{{ tmp_folder }}/swappy-{{ swappy_target_version }}.tar.gz"
+            dest: "{{ tmp_folder }}"
+            remote_src: true
+            creates: "{{ tmp_folder }}/swappy-{{ swappy_target_version}}"
+        - name: Compile swappy
+          ansible.builtin.shell:
+            chdir: "{{ tmp_folder }}/swappy-{{ swappy_target_version}}"
+            cmd: |
+              meson setup build
+              ninja -C build
+        - name: Copy swappy executable to local bin
+          ansible.builtin.copy:
+            src: "{{ tmp_folder }}/swappy-{{ swappy_target_version}}/build/swappy"
+            dest: "{{ local_bin}}"
+            mode: 0755
+      when:
+        - swappy_installed_version is not defined or (swappy_installed_version is defined and swappy_installed_version != swappy_target_version)
+      tags: swappy
 
-  - name: Install packages from pip
-    ansible.builtin.pip:
-      break_system_packages: true
-      name:
-        - ansible
-        - rofimoji
-      state: latest
-    become: false # only break user packages, not system-wide 😏
-    when: ansible_version.full is version('2.17', '>=') # you may need to update ansible first manually-ish
+    - name: Install packages from pip
+      ansible.builtin.pip:
+        break_system_packages: true
+        name:
+          - ansible
+          - rofimoji
+        state: latest
+      become: false # only break user packages, not system-wide 😏
+      when: ansible_version.full is version('2.17', '>=') # you may need to update ansible first manually-ish
 
-  - name: Make zsh the default shell
-    user:
-      name: "{{ ansible_user }}"
-      shell: "/usr/bin/zsh"
+    - name: Make zsh the default shell
+      user:
+        name: "{{ ansible_user }}"
+        shell: "/usr/bin/zsh"
 
-  - name: Install antidote (clone git repo to ~)
-    ansible.builtin.git:
-      repo: 'https://github.com/mattmc3/antidote.git'
-      depth: 1
-      dest: "{{ ansible_env.HOME }}/.antidote"
+    - name: Install antidote (clone git repo to ~)
+      ansible.builtin.git:
+        repo: "https://github.com/mattmc3/antidote.git"
+        depth: 1
+        dest: "{{ ansible_env.HOME }}/.antidote"
 
-  - name: Fetch the latest version of Kitty
-    set_fact:
-      kitty_latest: "{{ lookup('url', 'https://sw.kovidgoyal.net/kitty/current-version.txt') }}"
-  - name: Ask local Kitty version
-    ansible.builtin.shell: >
-      {{ kitty_root | quote }}/bin/kitty --version | grep -o '[0-9\.]*'
-    register: kitty_installed
-  - name: Install latest Kitty
-    block:
-      - name: Download Kitty tarball
-        ansible.builtin.get_url:
-          url: "https://github.com/kovidgoyal/kitty/releases/download/v{{ kitty_latest }}/kitty-{{ kitty_latest }}-x86_64.txz"
-          dest: "{{ tmp_folder }}/kitty-{{ kitty_latest }}-x86_64.txz"
-          mode: "0640"
-      - name: Extract Kitty
-        ansible.builtin.unarchive:
-          src: "{{ tmp_folder }}/kitty-{{ kitty_latest }}-x86_64.txz"
-          dest: "{{ kitty_root }}"
-          remote_src: true
-      - name: Put Kitty symlinks in place
-        ansible.builtin.file:
-          state: link
-          src: "{{ kitty_root }}/bin/{{ item }}"
-          dest: "{{ local_bin }}/{{ item }}"
-          mode: "0777"
-        loop: [kitty, kitten]
-       # i know, this could use a nested loop but that requires refactoring and including
-       # the tasks from another file, or even better, using jinja templates
-      - name: Put Kitty desktop templates in place
-        ansible.builtin.copy:
-          src: "{{ kitty_root }}/share/applications/{{ item }}.desktop"
-          dest: "{{ local_applications }}/{{ item }}.desktop"
-        loop: [kitty, kitty-open]
-      - name: Fix icon paths in Kitty desktop files
-        ansible.builtin.replace:
-          path: "{{ local_applications }}/{{ item }}.desktop"
-          regexp: "Icon=kitty"
-          replace: "Icon={{ kitty_root }}/share/icons/hicolor/256x256/apps/kitty.png"
-        loop: [kitty, kitty-open]
-      - name: Fix executable paths in Kitty desktop files
-        ansible.builtin.replace:
-          path: "{{ local_applications }}/{{ item }}.desktop"
-          regexp: "Exec=kitty"
-          replace: "Exec={{ kitty_root }}/bin/kitty"
-        loop: [kitty, kitty-open]
-    when:
-      - kitty_installed.stdout != kitty_latest
+    - name: Fetch the latest version of Kitty
+      set_fact:
+        kitty_latest: "{{ lookup('url', 'https://sw.kovidgoyal.net/kitty/current-version.txt') }}"
+    - name: Ask local Kitty version
+      ansible.builtin.shell: >
+        {{ kitty_root | quote }}/bin/kitty --version | grep -o '[0-9\.]*'
+      register: kitty_installed
+    - name: Install latest Kitty
+      block:
+        - name: Download Kitty tarball
+          ansible.builtin.get_url:
+            url: "https://github.com/kovidgoyal/kitty/releases/download/v{{ kitty_latest }}/kitty-{{ kitty_latest }}-x86_64.txz"
+            dest: "{{ tmp_folder }}/kitty-{{ kitty_latest }}-x86_64.txz"
+            mode: "0640"
+        - name: Extract Kitty
+          ansible.builtin.unarchive:
+            src: "{{ tmp_folder }}/kitty-{{ kitty_latest }}-x86_64.txz"
+            dest: "{{ kitty_root }}"
+            remote_src: true
+        - name: Put Kitty symlinks in place
+          ansible.builtin.file:
+            state: link
+            src: "{{ kitty_root }}/bin/{{ item }}"
+            dest: "{{ local_bin }}/{{ item }}"
+            mode: "0777"
+          loop: [kitty, kitten]
+          # i know, this could use a nested loop but that requires refactoring and including
+          # the tasks from another file, or even better, using jinja templates
+        - name: Put Kitty desktop templates in place
+          ansible.builtin.copy:
+            src: "{{ kitty_root }}/share/applications/{{ item }}.desktop"
+            dest: "{{ local_applications }}/{{ item }}.desktop"
+          loop: [kitty, kitty-open]
+        - name: Fix icon paths in Kitty desktop files
+          ansible.builtin.replace:
+            path: "{{ local_applications }}/{{ item }}.desktop"
+            regexp: "Icon=kitty"
+            replace: "Icon={{ kitty_root }}/share/icons/hicolor/256x256/apps/kitty.png"
+          loop: [kitty, kitty-open]
+        - name: Fix executable paths in Kitty desktop files
+          ansible.builtin.replace:
+            path: "{{ local_applications }}/{{ item }}.desktop"
+            regexp: "Exec=kitty"
+            replace: "Exec={{ kitty_root }}/bin/kitty"
+          loop: [kitty, kitty-open]
+      when:
+        - kitty_installed.stdout != kitty_latest
