@@ -4,6 +4,7 @@
   vars:
     kitty_root: "{{ ansible_env.HOME }}/.local/kitty.app"
     local_bin: "{{ ansible_env.HOME }}/.local/bin"
+    local_applications: "{{ ansible_env.HOME }}/.local/share/applications"
     tmp_folder: "{{ ansible_env.HOME }}/tmp"
     swappy_target_version: "1.5.1"
   remote_user: jani
@@ -42,17 +43,6 @@
       path: /etc/default/keybase
       state: touch
     when: '"keybase" not in ansible_facts.packages'
-
-  - name: Add Wire apt key
-    become: true
-    ansible.builtin.get_url:
-      url: https://wire-app.wire.com/linux/releases.key
-      dest: /etc/apt/keyrings/wire.asc
-  - name: Add Wire apt repository
-    ansible.builtin.apt_repository:
-      repo: deb [signed-by=/etc/apt/keyrings/wire.asc] https://wire-app.wire.com/linux/debian stable main
-      state: present
-      filename: wire-desktop
 
   - name: Install packages with apt
     become: true
@@ -96,7 +86,6 @@
         - mesa-utils
         - neofetch
         - network-manager-gnome
-        - nodejs
         - playerctl
         - psmisc
         - python3
@@ -213,11 +202,9 @@
     set_fact:
       kitty_latest: "{{ lookup('url', 'https://sw.kovidgoyal.net/kitty/current-version.txt') }}"
   - name: Ask local Kitty version
-    ansible.builtin.command: "{{ kitty_root }}/bin/kitty --version"
-    register: kitty_installed_version
-  - name: Set the current Kitty version to a variable
-    ansible.builtin.set_fact:
-      kitty_installed: "{{ kitty_installed_version.stdout.split(' ')[1] | trim | string }}"
+    ansible.builtin.shell: >
+      {{ kitty_root | quote }}/bin/kitty --version | grep -o '[0-9\.]*'
+    register: kitty_installed
   - name: Install latest Kitty
     block:
       - name: Download Kitty tarball
@@ -230,18 +217,31 @@
           src: "{{ tmp_folder }}/kitty-{{ kitty_latest }}-x86_64.txz"
           dest: "{{ kitty_root }}"
           remote_src: true
+      - name: Put Kitty symlinks in place
+        ansible.builtin.file:
+          state: link
+          src: "{{ kitty_root }}/bin/{{ item }}"
+          dest: "{{ local_bin }}/{{ item }}"
+          mode: "0777"
+        loop: [kitty, kitten]
+       # i know, this could use a nested loop but that requires refactoring and including
+       # the tasks from another file, or even better, using jinja templates
+      - name: Put Kitty desktop templates in place
+        ansible.builtin.copy:
+          src: "{{ kitty_root }}/share/applications/{{ item }}.desktop"
+          dest: "{{ local_applications }}/{{ item }}.desktop"
+        loop: [kitty, kitty-open]
+      - name: Fix icon paths in Kitty desktop files
+        ansible.builtin.replace:
+          path: "{{ local_applications }}/{{ item }}.desktop"
+          regexp: "Icon=kitty"
+          replace: "Icon={{ kitty_root }}/share/icons/hicolor/256x256/apps/kitty.png"
+        loop: [kitty, kitty-open]
+      - name: Fix executable paths in Kitty desktop files
+        ansible.builtin.replace:
+          path: "{{ local_applications }}/{{ item }}.desktop"
+          regexp: "Exec=kitty"
+          replace: "Exec={{ kitty_root }}/bin/kitty"
+        loop: [kitty, kitty-open]
     when:
-      - kitty_installed != kitty_latest
-  - name: Kitty symlink in place
-    ansible.builtin.file:
-      state: link
-      src: "{{ kitty_root }}/bin/kitty"
-      dest: "{{ local_bin }}/kitty"
-      mode: "0777"
-
-  - name: Kitten symlink in place
-    ansible.builtin.file:
-      state: link
-      src: "{{ kitty_root }}/bin/kitten"
-      dest: "{{ local_bin }}/kitten"
-      mode: "0777"
+      - kitty_installed.stdout != kitty_latest
