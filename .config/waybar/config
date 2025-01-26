@@ -1,65 +1,100 @@
+// waybar config reference at
+// https://github.com/Alexays/Waybar/wiki/Configuration
+
 {
     "layer": "top",
-
     "position": "bottom",
     "modules-left": [
         "sway/workspaces",
         "sway/mode"
     ],
     "modules-center": ["sway/window"],
+    // waybar supports natively mpris2 and load modules
+    // debian packages do not have them in the build flags
+    // also the clock is built without calendar support apparently
     "modules-right": [
+        "idle_inhibitor",
+        "network",
         "pulseaudio",
         "battery",
         "tray",
         "clock"
     ],
+    "sway/workspaces": {
+        "disable-scroll": true,
+    },
     "sway/window": {
-        "max-length": 50
+        "format": "{title}",
+        "icon": true,
+        "icon-size": 16,
+        "max-length": 50,
+        "rewrite": {
+           "(.*) - vim": " $1",
+           "(.*) - zsh": " [$1]"
+        },
+        "tooltip-format": "{app_id}",
+    },
+    "idle_inhibitor": {
+        "format": "{icon}",
+        "format-icons": {
+            "activated": "",
+            "deactivated": ""
+        },
+        "tooltip-format-activated": "Idle inhibitor enforced",
+        "tooltip-format-deactivated": "Idle inhibitor only if apps request it",
+    },
+    "network": {
+        "format": "{ifname}",
+        "format-wifi": "{ipaddr}",
+        "format-ethernet": "{ipaddr}",
+        "format-disconnected": "", //An empty format will hide the module.
+        "tooltip-format": "{ifname} via {gwaddr} ",
+        "tooltip-format-wifi": "{essid} ({signalStrength}%) {frequency} GHz ",
+    },
+    "pulseaudio": {
+        "format": "{icon} {volume}%",
+        "format-muted": " muted",
+        "format-icons": {
+            "headphones": "",
+            "handsfree": "",
+            "headset": "",
+            "phone": "",
+            "portable": "",
+            "car": "",
+            "default": ["", ""]
+        },
+        "on-click": "pavucontrol",
+        "on-click-middle": "pactl set-sink-mute @DEFAULT_SINK@ toggle",
+        "scroll-step": 2,
+        "tooltip": true,
     },
     "battery": {
         "format": "{capacity}% {icon}",
         "format-icons": ["", "", "", "", ""]
     },
+    "tray": {
+        "icon-size": 20,
+        "spacing": 8,
+    },
     "clock": {
-        "interval": 1,
-        "format": "{:%Y-%m-%d %H:%M:%S %z}",
-        "format-alt": "{:week %V}",
-        "tooltip-format": "<tt>{calendar}</tt>",
-        "timezones": ["Europe/Helsinki", "UTC"],
         "calendar": {
-            "mode"          : "year",
-            "mode-mon-col"  : 3,
-            "weeks-pos"     : "left",
-            "on-scroll"     : 1,
-            "on-click-right": "mode",
             "format": {
-                "months":     "<span color='#ffead3'><b>{}</b></span>",
                 "days":       "<span color='#ecc6d9'><b>{}</b></span>",
                 "weeks":      "<span color='#99ffdd'><b>W{}</b></span>",
+                "months":     "<span color='#ffead3'><b>{}</b></span>",
+                "today":      "<span color='#ff6699'><b><u>{}</u></b></span>",
                 "weekdays":   "<span color='#ffcc66'><b>{}</b></span>",
-                "today":      "<span color='#ff6699'><b><u>{}</u></b></span>"
-                }
             },
-    },
-    "tray": {
-        "icon-size": 21,
-        "spacing": 10
-    },
-    "pulseaudio": {
-        "scroll-step": 1,
-        "format": "{icon}  {volume}%",
-        "format-muted": "  Muted", // Icon: volume-mute
-        "format-icons": {
-            "headphones": "", // Icon: headphones
-            "handsfree": "", // Icon: headset
-            "headset": "", // Icon: headset
-            "phone": "", // Icon: phone
-            "portable": "", // Icon: phone
-            "car": "", // Icon: car
-            "default": ["", ""] // Icons: volume-down, volume-up
+            "mode"          : "year",
+            "mode-mon-col"  : 3,
+            "on-click-right": "mode",
+            "on-scroll"     : 1,
+            "weeks-pos"     : "left",
         },
-        "on-click": "pavucontrol",
-        "tooltip": true
-    }
-
+        "format": "{:%Y-%m-%d %H:%M:%S %z}",
+        "format-alt": "{:week %V}",
+        "interval": 1,
+        "timezones": ["Europe/Helsinki", "UTC"],
+        "tooltip-format": "<tt>{calendar}</tt>",
+    },
 }
