@@ -1,5 +1,32 @@
+# load omz first to avoid issues
+getantidote/use-omz
+
+# load basic omz stuff
+ohmyzsh/ohmyzsh path:lib
+
+# load my choice of omz plugins
+ohmyzsh/ohmyzsh path:plugins/command-not-found
+ohmyzsh/ohmyzsh path:plugins/copybuffer
+ohmyzsh/ohmyzsh path:plugins/copyfile
+ohmyzsh/ohmyzsh path:plugins/copypath
+ohmyzsh/ohmyzsh path:plugins/direnv
+ohmyzsh/ohmyzsh path:plugins/extract
+ohmyzsh/ohmyzsh path:plugins/fancy-ctrl-z
+ohmyzsh/ohmyzsh path:plugins/git
+ohmyzsh/ohmyzsh path:plugins/gpg-agent
+ohmyzsh/ohmyzsh path:plugins/magic-enter
+ohmyzsh/ohmyzsh path:plugins/nvm
+ohmyzsh/ohmyzsh path:plugins/python
+ohmyzsh/ohmyzsh path:plugins/thefuck
+
+# brew and other macos stuff needed only on mac
+ohmyzsh/ohmyzsh path:plugins/brew conditional:is-macos
+ohmyzsh/ohmyzsh path:plugins/macos conditional:is-macos
+
+fdellwing/zsh-bat
 romkatv/powerlevel10k
-zsh-users/zsh-autosuggestions
-z-shell/zsh-diff-so-fancy
-zsh-users/zsh-syntax-highlighting
 unixorn/fzf-zsh-plugin
+z-shell/zsh-diff-so-fancy
+zsh-users/zsh-autosuggestions
+zsh-users/zsh-completions path:src kind:fpath
+zsh-users/zsh-syntax-highlighting
