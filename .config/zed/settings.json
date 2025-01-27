@@ -20,6 +20,20 @@
     "diagnostics": false,
     "metrics": false
   },
+  "auto_install_extensions": {
+    "biome": true,
+    "git-firefly": true,
+    "html": true,
+    "ruff": true
+  },
+  "terminal": {
+    "detect_venv": {
+      "on": {
+        "directories": [".venv", "venv"],
+        "activate_script": "default"
+      }
+    }
+  },
   "lsp": {
     "biome": {
       "settings": {
