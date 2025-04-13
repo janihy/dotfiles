@@ -1,5 +1,13 @@
 %YAML 1.3
 ---
-- Key: [Smart Shift, pressed]
+- MouseGesture: []
 - Execute: [playerctl, play-pause]
+...
+---
+- MouseGesture: Mouse Right
+- Execute: [playerctl, next]
+...
+---
+- MouseGesture: Mouse Left
+- Execute: [playerctl, previous]
 ...
