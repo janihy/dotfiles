@@ -4,6 +4,7 @@ for_window {
     [app_id="solaar"] floating enable
     [app_id="wdisplays"] floating enable
     [app_id="nm-connection-editor"] floating enable
+    [app_id="xdg-desktop-portal-gtk"] floating enable
     [window_role="pop-up"] floating enable
     [window_role="bubble"] floating enable
     [window_role="dialog"] floating enable

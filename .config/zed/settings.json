@@ -7,8 +7,39 @@
 // custom settings, run `zed: open default settings` from the
 // command palette (cmd-shift-p / ctrl-shift-p)
 {
+  "ssh_connections": [
+    {
+      "host": "dsg.fi",
+      "username": "dsg",
+      "projects": [
+        {
+          "paths": ["~/.sopel"]
+        }
+      ],
+      "nickname": "dsg"
+    }
+  ],
+  "use_system_path_prompts": false,
+  "features": {
+    "edit_prediction_provider": "zed"
+  },
+  "indent_guides": {
+    "coloring": "indent_aware"
+  },
+  "collaboration_panel": {
+    // Whether to show the collaboration panel button in the status bar.
+    "button": false
+  },
+  "inline_blame": {
+    "show_commit_summary": true
+  },
+  "journal": {
+    "hour_format": "hour24"
+  },
+  "use_smartcase_search": true,
   "ui_font_size": 14,
-  "buffer_font_size": 14,
+  "buffer_font_size": 14.0,
+  "wrap_guides": [80],
   "theme": {
     "mode": "system",
     "light": "One Light",
