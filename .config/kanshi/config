@@ -10,5 +10,5 @@ profile {
 } 
 
 profile {
-  output "Sharp Corporation 0x1476 0x00000000" enable scale 1.5
+  output "Sharp Corporation 0x1476 Unknown" enable scale 1.5
 }
