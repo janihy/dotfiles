@@ -245,3 +245,17 @@
           loop: [kitty, kitty-open]
       when:
         - kitty_installed.stdout != kitty_latest
+    - name: Install dropboxd
+      shell: curl -L "https://www.dropbox.com/download?plat=lnx.x86_64" | tar -C $HOME -xzf -
+      args:
+        creates: ~/.dropbox-dist/dropboxd
+    - name: ensure systemd user directory exists
+      file:
+        path: "{{ ansible_env.HOME }}/.config/systemd/user/"
+        recurse: true
+        state: directory
+    - name: Create dropbox service
+      ansible.builtin.template:
+        src: templates/dropbox.service.j2
+        dest: "{{ ansible_env.HOME }}/.config/systemd/user/dropbox.service"
+        mode: 0644
