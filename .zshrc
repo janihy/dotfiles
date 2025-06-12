@@ -32,6 +32,14 @@ fi
 
 antidote load
 
+
+if [[ $TERM_PROGRAM == "zed" ]]; then
+  export TERM=xterm-256color
+else
+  export TERM=xterm-kitty
+fi
+
+
 # Preferred editor for local and remote sessions
 if [[ -n $SSH_CONNECTION ]]; then
   export EDITOR='vim'
@@ -47,7 +55,6 @@ alias mv='mv -iv'
 # is not an option everywhere; this is ugly
 alias ssh='TERM=xterm-256color ssh'
 
-# ctrl+space to accept autosuggestions
 bindkey '^@' autosuggest-accept
 
 # use ctrl+arrows to move on the shell
@@ -64,3 +71,7 @@ fi
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+
+export NVM_DIR="$HOME/.nvm"
+export NVM_COMPLETION=true
+export NVM_LAZY_LOAD=true

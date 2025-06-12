@@ -30,3 +30,4 @@ z-shell/zsh-diff-so-fancy
 zsh-users/zsh-autosuggestions
 zsh-users/zsh-completions path:src kind:fpath
 zsh-users/zsh-syntax-highlighting
+lukechilds/zsh-nvm
